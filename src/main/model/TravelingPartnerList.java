@@ -5,7 +5,7 @@ import java.util.List;
 
 // Creates a list of TravelingPartner
 public class TravelingPartnerList {
-    private List<TravelingPartner> travelingPartners;
+    private static List<TravelingPartner> travelingPartners;
 
     public TravelingPartnerList() {
         travelingPartners = new LinkedList<>();
@@ -26,18 +26,16 @@ public class TravelingPartnerList {
     }
 
     //EFFECTS: counts the size of the travelingPartners list
-    public int count() {
+    public static int count() {
         return travelingPartners.size();
     }
 
-    //REQUIRES: name must match with one of the existed TravelingPartners in this travelingPartners
+
     //MODIFIES: this
-    //EFFECTS: add correspond amount of split Expense that the TravelingPartners with the given name has owed the user
-    public void addSplitExpenseAmountOwedToMe(String name, double amount) {
+    //EFFECTS: add correspond amount of split Expense that each tp in the travelingPartners has owed the user
+    public void addSplitExpenseAmountOwedToMe(double amount) {
         for (TravelingPartner next : travelingPartners) {
-            if (next.getName() == name) {
-                next.addAmountOwedToMe(amount);
-            }
+            next.addAmountOwedToMe(amount);
         }
     }
 
