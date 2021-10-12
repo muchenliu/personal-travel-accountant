@@ -25,6 +25,12 @@ public class ExpenseList {
         expenseList.remove(e);
     }
 
+    //EFFECTS: count up total amount of Expenses on this expenseList
+    public int count() {
+        return expenseList.size();
+    }
+
+
     //EFFECTS: return the sum of the total expense in this expenseList
     public double totalExpense() {
         double total = 0;
@@ -50,7 +56,7 @@ public class ExpenseList {
     public double totalCashExpense() {
         double total = 0;
         for (Expense next : expenseList) {
-            if (next.getIsCash()) {
+            if (next.isCash) {
                 total = total + next.getAmount();
             }
         }

@@ -28,16 +28,6 @@ public class Expense {
         return category;
     }
 
-    //getter
-    public boolean getIsCash() {
-        return isCash;
-    }
-
-    //getter
-    public boolean getIsSplit() {
-        return isSplit;
-    }
-
     //MODIFIES: this
     //EFFECTS: set isCash to true to represent this expense is a cash expense
     public void setCash() {
@@ -49,7 +39,7 @@ public class Expense {
     //EFFECTS: set the split Expense to the correct amount by dividing this amount by the size of TravelingPartnerList
     //         add 1 (to include the user) and change isSplit to true
     public void setSplitAmount() {
-        amount = amount / TravelingPartnerList.count() + 1;
+        amount = amount / (TravelingPartnerList.count() + 1);
         isSplit = true;
     }
 
