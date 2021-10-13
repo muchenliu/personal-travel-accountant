@@ -9,7 +9,7 @@ class ExpenseTest {
     Expense testExpense;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         testExpense = new Expense(19.75, "Food");
     }
 

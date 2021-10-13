@@ -13,9 +13,11 @@ public class ExpenseList {
 
     //REQUIRES: e must be an existed Expense
     //MODIFIES: this
-    //EFFECTS: add the given Expense to this expenseList
+    //EFFECTS: add the given Expense to this expenseList, if the given Expense is already in the list, then do nothing
     public void addExpense(Expense e) {
-        expenseList.add(e);
+        if (!expenseList.contains(e)) {
+            expenseList.add(e);
+        }
     }
 
     //REQUIRES: e must be in the expenses
@@ -30,6 +32,11 @@ public class ExpenseList {
         return expenseList.size();
     }
 
+    //REQUIRES: this must not be an empty list
+    //EFFECTS: return the Expense in the list which corresponds to the input position
+    public Expense getExpense(int n) {
+        return expenseList.get(n);
+    }
 
     //EFFECTS: return the sum of the total expense in this expenseList
     public double totalExpense() {

@@ -13,9 +13,12 @@ public class TravelingPartnerList {
 
     //REQUIRES: tp must be an existed TravelingPartner
     //MODIFIES: this
-    //EFFECTS: add the given TravelingPartner to this travelingPartners
+    //EFFECTS: add the given TravelingPartner to this travelingPartners, if the given tp is already in the list,
+    //         then do nothing
     public void addTravelingPartner(TravelingPartner tp) {
-        travelingPartners.add(tp);
+        if (!travelingPartners.contains(tp)) {
+            travelingPartners.add(tp);
+        }
     }
 
     //REQUIRES: tp must be in this travelingPartners
@@ -30,12 +33,18 @@ public class TravelingPartnerList {
         return travelingPartners.size();
     }
 
+    //REQUIRES: this must not be an empty list
+    //EFFECTS: return the tp in the list which corresponds to the input position
+    public TravelingPartner getTravelingPartner(int n) {
+        return travelingPartners.get(n);
+    }
+
 
     //MODIFIES: this
     //EFFECTS: add correspond amount of split Expense that each tp in the travelingPartners has owed the user
-    public void addSplitExpenseAmountOwedToMe(double amount) {
+    public void addSplitExpenseAmountOwedToMe(double owedAmount) {
         for (TravelingPartner next : travelingPartners) {
-            next.addAmountOwedToMe(amount);
+            next.addAmountOwedToMe(owedAmount);
         }
     }
 
@@ -43,10 +52,10 @@ public class TravelingPartnerList {
     //MODIFIES: this
     //EFFECTS: add correspond amount of split Expense that the TravelingPartners with the given name that the user has
     //         borrowed from
-    public void addSplitExpenseAmountIBorrowed(String name, double amount) {
+    public void addSplitExpenseAmountIBorrowed(String name, double borrowedAmount) {
         for (TravelingPartner next : travelingPartners) {
-            if (next.getName() == name) {
-                next.addAmountIBorrowed(amount);
+            if (next.getName().equals(name)) {
+                next.addAmountIBorrowed(borrowedAmount);
             }
         }
     }

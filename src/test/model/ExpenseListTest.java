@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseListTest {
-    ExpenseList testSet;
+    ExpenseList testExpenseList;
     Expense expenseA = new Expense(38.5, "Souvenirs");
     Expense expenseB = new Expense(7, "Food");
     Expense expenseC = new Expense(40, "Living");
@@ -14,73 +14,88 @@ public class ExpenseListTest {
     Expense expenseE = new Expense(58, "Food");
 
     @BeforeEach
-    public void setup() {
-        testSet = new ExpenseList();
+    void setup() {
+        testExpenseList = new ExpenseList();
     }
 
     @Test
     void testAddExpense() {
         // add one expense to empty expenseList
-        testSet.addExpense(expenseA);
+        testExpenseList.addExpense(expenseA);
 
-        assertEquals(1, testSet.count());
+        assertEquals(1, testExpenseList.count());
+        assertEquals(expenseA, testExpenseList.getExpense(0));
 
         // add multiple expenses to expenseList
-        testSet.addExpense(expenseB);
-        testSet.addExpense(expenseC);
+        testExpenseList.addExpense(expenseB);
+        testExpenseList.addExpense(expenseC);
 
-        assertEquals(3, testSet.count());
+        assertEquals(3, testExpenseList.count());
+        assertEquals(expenseA, testExpenseList.getExpense(0));
+        assertEquals(expenseB, testExpenseList.getExpense(1));
+        assertEquals(expenseC, testExpenseList.getExpense(2));
+
+        //add duplicate expense to the expenseList
+        testExpenseList.addExpense(expenseA);
+
+        assertEquals(3, testExpenseList.count());
+        assertEquals(expenseA, testExpenseList.getExpense(0));
+        assertEquals(expenseB, testExpenseList.getExpense(1));
+        assertEquals(expenseC, testExpenseList.getExpense(2));
     }
 
     @Test
     void testRemoveExpense() {
-        testSet.addExpense(expenseA);
-        testSet.addExpense(expenseB);
-        testSet.addExpense(expenseC);
+        testExpenseList.addExpense(expenseA);
+        testExpenseList.addExpense(expenseB);
+        testExpenseList.addExpense(expenseC);
 
         // remove one expense from testSet of size 3
-        testSet.removeExpense(expenseA);
+        testExpenseList.removeExpense(expenseA);
 
-        assertEquals(2, testSet.count());
+        assertEquals(2, testExpenseList.count());
+        assertEquals(expenseB, testExpenseList.getExpense(0));
+        assertEquals(expenseC, testExpenseList.getExpense(1));
 
         // remove one expense from testSet of size 2
-        testSet.removeExpense(expenseB);
+        testExpenseList.removeExpense(expenseB);
 
-        assertEquals(1, testSet.count());
+        assertEquals(1, testExpenseList.count());
+        assertEquals(expenseC, testExpenseList.getExpense(0));
 
         // remove one expense from testSet of size 1
-        testSet.removeExpense(expenseC);
+        testExpenseList.removeExpense(expenseC);
 
-        assertEquals(0, testSet.count());
+        assertEquals(0, testExpenseList.count());
     }
 
     @Test
     void testTotalExpenseWithEmptyExpenseList() {
-        double total = testSet.totalExpense();
+        double total = testExpenseList.totalExpense();
 
         assertEquals(0, total);
     }
 
     @Test
     void testTotalExpenseWithNonEmptyExpenseList() {
-        testSet.addExpense(expenseA);
-        testSet.addExpense(expenseB);
-        testSet.addExpense(expenseC);
-        double total = testSet.totalExpense();
+        testExpenseList.addExpense(expenseA);
+        testExpenseList.addExpense(expenseB);
+        testExpenseList.addExpense(expenseC);
+        double total = testExpenseList.totalExpense();
 
         assertEquals(expenseA.getAmount() + expenseB.getAmount() + expenseC.getAmount(), total);
     }
 
     @Test
     void testTotalExpenseInCategory() {
-        testSet.addExpense(expenseA);
-        testSet.addExpense(expenseB);
-        testSet.addExpense(expenseC);
-        testSet.addExpense(expenseD);
-        testSet.addExpense(expenseE);
-        double totalSouvenirs = testSet.totalExpenseInCategory("Souvenirs");
-        double totalFood = testSet.totalExpenseInCategory("Food");
-        double totalLiving = testSet.totalExpenseInCategory("Living");
+        testExpenseList.addExpense(expenseA);
+        testExpenseList.addExpense(expenseB);
+        testExpenseList.addExpense(expenseC);
+        testExpenseList.addExpense(expenseD);
+        testExpenseList.addExpense(expenseE);
+        double totalSouvenirs = testExpenseList.totalExpenseInCategory("Souvenirs");
+        double totalFood = testExpenseList.totalExpenseInCategory("Food");
+        double totalLiving = testExpenseList.totalExpenseInCategory("Living");
 
         assertEquals(expenseA.getAmount(), totalSouvenirs);
         assertEquals(expenseB.getAmount() + expenseE.getAmount(), totalFood);
@@ -89,7 +104,7 @@ public class ExpenseListTest {
 
     @Test
     void testTotalCashExpenseWithZeroCashExpense() {
-        assertEquals(0, testSet.totalCashExpense());
+        assertEquals(0, testExpenseList.totalCashExpense());
     }
 
     @Test
@@ -97,12 +112,12 @@ public class ExpenseListTest {
         expenseA.setCash();
         expenseC.setCash();
         expenseE.setCash();
-        testSet.addExpense(expenseA);
-        testSet.addExpense(expenseB);
-        testSet.addExpense(expenseC);
-        testSet.addExpense(expenseD);
-        testSet.addExpense(expenseE);
-        double totalCashExp = testSet.totalCashExpense();
+        testExpenseList.addExpense(expenseA);
+        testExpenseList.addExpense(expenseB);
+        testExpenseList.addExpense(expenseC);
+        testExpenseList.addExpense(expenseD);
+        testExpenseList.addExpense(expenseE);
+        double totalCashExp = testExpenseList.totalCashExpense();
 
         assertEquals(expenseA.getAmount() + expenseC.getAmount() + expenseE.getAmount(), totalCashExp);
     }
