@@ -69,7 +69,7 @@ public class ExpenseListTest {
 
         assertEquals(0, testExpenseList.count());
 
-        //remove expense from an ampty list
+        //remove expense from an empty list
         assertFalse(testExpenseList.removeExpense(expenseA));
 
         //remove expense not in the list
@@ -77,6 +77,8 @@ public class ExpenseListTest {
         boolean removeB = testExpenseList.removeExpense(expenseB);
 
         assertFalse(removeB);
+        assertEquals(1, testExpenseList.count());
+        assertEquals(expenseE, testExpenseList.getExpense(0));
     }
 
     @Test

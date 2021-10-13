@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TravelingPartnerListTest {
     TravelingPartnerList testTPList;
@@ -50,8 +50,9 @@ public class TravelingPartnerListTest {
         testTPList.addTravelingPartner(tp3);
 
         //remove tp from testTPList of size 3
-        testTPList.removeTravelingPartner(tp1);
+        boolean remove1 = testTPList.removeTravelingPartner(tp1);
 
+        assertTrue(remove1);
         assertEquals(2, TravelingPartnerList.count());
         assertEquals(tp2, testTPList.getTravelingPartner(0));
         assertEquals(tp3, testTPList.getTravelingPartner(1));
@@ -66,6 +67,17 @@ public class TravelingPartnerListTest {
         testTPList.removeTravelingPartner(tp3);
 
         assertEquals(0, TravelingPartnerList.count());
+
+        //remove tp from an empty list
+        assertFalse(testTPList.removeTravelingPartner(tp1));
+
+        //remove expense not in the list
+        testTPList.addTravelingPartner(tp1);
+        boolean removeB = testTPList.removeTravelingPartner(tp3);
+
+        assertFalse(removeB);
+        assertEquals(1, TravelingPartnerList.count());
+        assertEquals(tp1, testTPList.getTravelingPartner(0));
     }
 
     @Test

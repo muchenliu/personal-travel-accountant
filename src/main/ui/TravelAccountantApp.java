@@ -2,7 +2,10 @@ package ui;
 
 import model.Expense;
 import model.ExpenseList;
+import model.TravelingPartner;
+import model.TravelingPartnerList;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 //travel accountant application
@@ -11,6 +14,7 @@ public class TravelAccountantApp {
     private double cash;
     private Scanner input;
     private ExpenseList userExpenses = new ExpenseList();
+    private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -94,11 +98,11 @@ public class TravelAccountantApp {
         } else if (command.equals("b")) {
             removeExpense();
         } else if (command.equals("c")) {
-            totalExpense();
+            printTotalExpense();
         } else if (command.equals("d")) {
-            categoryExpense();
+            printCategoryExpense();
         } else if (command.equals("e")) {
-            budgetLeft();
+            printBudgetLeft();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -149,7 +153,7 @@ public class TravelAccountantApp {
     }
 
     //MODIFIES: this
-    //EFFECTS: record and Expense input from user
+    //EFFECTS: record an Expense input from user
     private void recordExpense() {
         double amount;
         String category;
@@ -181,19 +185,67 @@ public class TravelAccountantApp {
 
         wasteExpense = new Expense(amount, category);
         if (userExpenses.removeExpense(wasteExpense)) {
-            System.out.println("The expense has been removed.");
+            System.out.println("The expense has been removed");
         }
+        System.out.println("This expense does not exist");
+    }
 
-        System.out.println("This expense does not exist.");
+    //EFFECTS: print out total expense amount
+    private void printTotalExpense() {
+        double totalExp = userExpenses.totalExpense();
+        System.out.println("Your total expense is : $" + totalExp);
+    }
+
+    //EFFECTS: print out expense in the category that user input
+    private void printCategoryExpense() {
+        String cname;
+        double categoryTotal;
+
+        System.out.println("Please enter the expense category name which you want to check : ");
+
+        cname = input.next();
+        categoryTotal = userExpenses.totalExpenseInCategory(cname);
+
+        System.out.println("Your total expense in category " + cname.toUpperCase() + " is " + categoryTotal);
+    }
+
+    //EFFECTS: print out the budget left
+    private void printBudgetLeft() {
+        double budgetLeft = budget - userExpenses.totalExpense();
+        System.out.println("You still have $" + budgetLeft + " left");
+    }
+
+    //MODIFIES: this
+    //EFFECTS: add a TravelingPartner input from user
+    private void addTP() {
+        String givenName;
+        TravelingPartner newTP;
+
+        System.out.println("Please enter the name of your traveling partner : ");
+        givenName = input.next();
+        newTP = new TravelingPartner(givenName);
+        userTravelingPartnerList.addTravelingPartner(newTP);
+
+        System.out.println("Your traveling partner, " + givenName + " has been added");
+    }
+
+    //MODIFIES: this
+    //EFFECTS: remove correspond tp if match the name given by the user
+    private void removeTP() {
+        String givenName;
+        TravelingPartner removeTP;
+
+        System.out.println("Please enter the name of the traveling partner that you want to remove : ");
+        givenName = input.next();
+        removeTP = new TravelingPartner(givenName);
+
+        if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
+            System.out.println("The traveling partner has been removed");
+        }
+        System.out.println("This traveling partner does not exist");
     }
 
 
-
-
-
 }
-
-
-
 
 

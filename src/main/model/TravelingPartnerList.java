@@ -24,8 +24,12 @@ public class TravelingPartnerList {
     //REQUIRES: tp must be in this travelingPartners
     //MODIFIES: this
     //EFFECTS: removes the given TravelingPartner from this travelingPartners
-    public void removeTravelingPartner(TravelingPartner tp) {
-        travelingPartners.remove(tp);
+    public boolean removeTravelingPartner(TravelingPartner tp) {
+        if (travelingPartners.contains(tp)) {
+            travelingPartners.remove(tp);
+            return true;
+        }
+        return false;
     }
 
     //EFFECTS: counts the size of the travelingPartners list
