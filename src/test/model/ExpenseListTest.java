@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpenseListTest {
     ExpenseList testExpenseList;
@@ -51,8 +51,9 @@ public class ExpenseListTest {
         testExpenseList.addExpense(expenseC);
 
         // remove one expense from testSet of size 3
-        testExpenseList.removeExpense(expenseA);
+        boolean removeA = testExpenseList.removeExpense(expenseA);
 
+        assertTrue(removeA);
         assertEquals(2, testExpenseList.count());
         assertEquals(expenseB, testExpenseList.getExpense(0));
         assertEquals(expenseC, testExpenseList.getExpense(1));
@@ -67,6 +68,15 @@ public class ExpenseListTest {
         testExpenseList.removeExpense(expenseC);
 
         assertEquals(0, testExpenseList.count());
+
+        //remove expense from an ampty list
+        assertFalse(testExpenseList.removeExpense(expenseA));
+
+        //remove expense not in the list
+        testExpenseList.addExpense(expenseE);
+        boolean removeB = testExpenseList.removeExpense(expenseB);
+
+        assertFalse(removeB);
     }
 
     @Test

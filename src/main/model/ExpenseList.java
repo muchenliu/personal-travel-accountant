@@ -22,9 +22,13 @@ public class ExpenseList {
 
     //REQUIRES: e must be in the expenses
     //MODIFIES: this
-    //EFFECTS: removes the given Expense from this expenseList
-    public void removeExpense(Expense e) {
-        expenseList.remove(e);
+    //EFFECTS: removes the given Expense from this expenseList, return false if the expense is not in the list
+    public boolean removeExpense(Expense e) {
+        if (expenseList.contains(e)) {
+            expenseList.remove(e);
+            return true;
+        }
+        return false;
     }
 
     //EFFECTS: count up total amount of Expenses on this expenseList
