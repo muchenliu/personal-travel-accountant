@@ -25,11 +25,18 @@ public class TravelingPartnerList {
     //MODIFIES: this
     //EFFECTS: removes the given TravelingPartner from this travelingPartners
     public boolean removeTravelingPartner(TravelingPartner tp) {
-        if (travelingPartners.contains(tp)) {
-            travelingPartners.remove(tp);
-            return true;
+        for (TravelingPartner next : travelingPartners) {
+            if (next.getName() == tp.getName()) {
+                travelingPartners.remove(tp);
+                return true;
+            }
         }
         return false;
+    }
+
+    //getter
+    public List<TravelingPartner> getTravelingPartners() {
+        return travelingPartners;
     }
 
     //EFFECTS: counts the size of the travelingPartners list

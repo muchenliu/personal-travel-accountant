@@ -5,7 +5,7 @@ import model.ExpenseList;
 import model.TravelingPartner;
 import model.TravelingPartnerList;
 
-import java.util.Locale;
+import java.util.Objects;
 import java.util.Scanner;
 
 //travel accountant application
@@ -18,6 +18,9 @@ public class TravelAccountantApp {
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
+        input = new Scanner(System.in);
+        budget = 0;
+        cash = 0;
         runTravelAccountant();
     }
 
@@ -32,8 +35,17 @@ public class TravelAccountantApp {
         cash = input.nextDouble();
 
         boolean keepGoing = true;
-        String command = null;
+        while (keepGoing) {
+            displayMainMenu();
+            System.out.println("Please enter the command : ");
+            String command = input.next();
 
+            if (command.equals("q")) {
+                keepGoing = false;
+            } else {
+                processMainCommand(command);
+            }
+        }
 
         System.out.println("See you next time! Have a wonderful trip :)");
     }
@@ -65,19 +77,25 @@ public class TravelAccountantApp {
     //MODIFIES: this
     //EFFECTS: process user inputs of the Expense page of the app
     private void runExpense() {
-        //stub
+        displayExpenseMenu();
+        String command = input.next();
+        processExpenseCommand(command);
     }
 
     //MODIFIES: this
     //EFFECTS: process user inputs of the TravelingPartner page of the app
     private void runTravelingPartner() {
-        //stub
+        displayTravelingPartnerMenu();
+        String command = input.next();
+        processTravelingPartnerCommand(command);
     }
 
     //MODIFIES: this
     //EFFECTS: process user inputs of the Cash page of the app
     private void runCash() {
-        //stub
+        displayCashMenu();
+        String command = input.next();
+        processCashCommand(command);
     }
 
     //EFFECTS: display expense menu to user
@@ -105,6 +123,8 @@ public class TravelAccountantApp {
             printBudgetLeft();
         } else {
             System.out.println("Selection not valid...");
+            System.out.println("Please re-enter the input");
+            runExpense();
         }
     }
 
@@ -125,11 +145,13 @@ public class TravelAccountantApp {
         } else if (command.equals("b")) {
             removeTP();
         } else if (command.equals("c")) {
-            checkAmountOwed();
+            printAmountOwed();
         } else if (command.equals("d")) {
-            checkAmountBorrowed();
+            printAmountBorrowed();
         } else {
             System.out.println("Selection not valid...");
+            System.out.println("Please re-enter the input");
+            runTravelingPartner();
         }
     }
 
@@ -149,6 +171,8 @@ public class TravelAccountantApp {
             cashLeft();
         } else {
             System.out.println("Selection not valid...");
+            System.out.println("Please re-enter the input");
+            runCash();
         }
     }
 
@@ -157,7 +181,6 @@ public class TravelAccountantApp {
     private void recordExpense() {
         double amount;
         String category;
-        Expense newExpense;
 
         System.out.println("Please enter the amount ant the category of this expense :");
         System.out.println("Amount : ");
@@ -165,9 +188,61 @@ public class TravelAccountantApp {
         System.out.println("Category : ");
         category = input.next();
 
-        newExpense = new Expense(amount, category);
-        userExpenses.addExpense(newExpense);
-        System.out.println("The Expense has ben added");
+        doSplitAndAddExpense(amount, category);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: process the input, split the expense to correspond person/people if needed and add the expense to the
+    //         list
+    private void doSplitAndAddExpense(double amount, String category) {
+        Expense newExpense = new Expense(amount, category);
+        System.out.println("Is this a split expense?");
+        System.out.println("Please enter y for yes and n for no");
+        String isSplit = input.next();
+        boolean invalidInput = true;
+        while (invalidInput) {
+
+            if (Objects.equals(isSplit, "y")) {
+                newExpense.setSplitAmount();
+                userExpenses.addExpense(newExpense);
+                addExpenseToTP(newExpense.getAmount());
+                invalidInput = false;
+                System.out.println("The split expense has ben added");
+            } else if (Objects.equals(isSplit, "n")) {
+                userExpenses.addExpense(newExpense);
+                invalidInput = false;
+                System.out.println("The expense has ben added");
+            } else {
+                System.out.println("invalid input...");
+                System.out.println("Please re-enter y for split expense or n for un-split expense : ");
+                isSplit = input.next();
+            }
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECT: add the split amount to correspond person/people depends on who paid the bill
+    private void addExpenseToTP(double amount) {
+        System.out.println("Who paid for the bill?");
+        System.out.println("\ta -> I paid the bill");
+        System.out.println("\tb -> One of my traveling partner paid the bill");
+        String whoPaid = input.next();
+        boolean invalidInput = true;
+        while (invalidInput) {
+            if (Objects.equals(whoPaid, "a")) {
+                userTravelingPartnerList.addSplitExpenseAmountOwedToMe(amount);
+                invalidInput = false;
+            } else if (Objects.equals(whoPaid, "b")) {
+                System.out.println("Please enter the name of the traveling partner who paid for the bill : ");
+                String tpName = input.next();
+                userTravelingPartnerList.addSplitExpenseAmountIBorrowed(tpName, amount);
+                invalidInput = false;
+            } else {
+                System.out.println("invalid input...");
+                System.out.println("Please re-enter a or b : ");
+                whoPaid = input.next();
+            }
+        }
     }
 
     //MODIFIES: this
@@ -245,6 +320,35 @@ public class TravelAccountantApp {
         System.out.println("This traveling partner does not exist");
     }
 
+    //EFFECTS: print out the amount each tp owed to user
+    private void printAmountOwed() {
+        System.out.println("The amount each traveling partner owed to you are as following :");
+        for (TravelingPartner next : userTravelingPartnerList.getTravelingPartners()) {
+            System.out.println(next.getName() + " : $" + next.getAmountOwedToMe());
+        }
+    }
+
+    //EFFECTS: print out the amount user borrowed from user
+    private void printAmountBorrowed() {
+        System.out.println("The amount you have borrowed from each traveling partner are as the following : ");
+        for (TravelingPartner next : userTravelingPartnerList.getTravelingPartners()) {
+            System.out.println(next.getName() + " : " + next.getAmountIBorrowed());
+        }
+    }
+
+    //EFFECTS: add the cash income to cash amount and print out the cash balance after added the cash gain
+    private void cashIn() {
+        double cashGain;
+        System.out.println("Please enter the cash amount you gained : $");
+        cashGain = input.nextDouble();
+        cash = cash + cashGain;
+        System.out.println("You now have $" + cash + " cash");
+    }
+
+    //EFFECTS
+    private void cashLeft() {
+        System.out.println("You still have $" + cash + " cash left");
+    }
 
 }
 

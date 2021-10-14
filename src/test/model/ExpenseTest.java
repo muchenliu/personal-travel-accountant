@@ -18,7 +18,6 @@ class ExpenseTest {
         assertEquals(19.75, testExpense.getAmount());
         assertEquals("Food", testExpense.getCategory());
         assertFalse(testExpense.isCash);
-        assertFalse(testExpense.isSplit);
     }
 
     @Test
@@ -38,6 +37,5 @@ class ExpenseTest {
         testExpense.setSplitAmount();
 
         assertEquals(19.75 / 3, testExpense.getAmount());
-        assertTrue(testExpense.isSplit);
     }
 }

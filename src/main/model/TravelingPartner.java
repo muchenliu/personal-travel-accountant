@@ -22,6 +22,15 @@ public class TravelingPartner {
         return name;
     }
 
+    //getter
+    public double getAmountOwedToMe() {
+        return amountOwedToMe;
+    }
+
+    //getter
+    public double getAmountIBorrowed() {
+        return amountIBorrowed;
+    }
 
     //MODIFIES: this
     //EFFECTS: add the input amount on current amountOwedToMe

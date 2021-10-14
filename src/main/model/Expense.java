@@ -5,7 +5,6 @@ public class Expense {
     private double amount;     // the amount of the Expense
     private final String category;   // the category the Expense belongs to
     protected boolean isCash;  // represents whether the Expense is a cash Expense
-    protected boolean isSplit; // represents whether the Expense is a Expense splits between TravelingPartners
 
     //REQUIRES: if distinct expenses are under the same category (e.g. launch expense, dinner expense, treat expense,
     //          and afternoon tea expense are all under the "Food" category; each hotel/Airbnb expense are under the
@@ -15,7 +14,6 @@ public class Expense {
         this.amount = amount;
         category = cname;
         isCash = false;
-        isSplit = false;
     }
 
     //getter
@@ -40,7 +38,6 @@ public class Expense {
     //         add 1 (to include the user) and change isSplit to true
     public void setSplitAmount() {
         amount = amount / (TravelingPartnerList.count() + 1);
-        isSplit = true;
     }
 
 }

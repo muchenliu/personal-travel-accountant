@@ -24,9 +24,11 @@ public class ExpenseList {
     //MODIFIES: this
     //EFFECTS: removes the given Expense from this expenseList, return false if the expense is not in the list
     public boolean removeExpense(Expense e) {
-        if (expenseList.contains(e)) {
-            expenseList.remove(e);
-            return true;
+        for (Expense next : expenseList) {
+            if (next.getAmount() == e.getAmount() && next.getCategory() == e.getCategory()) {
+                expenseList.remove(e);
+                return true;
+            }
         }
         return false;
     }

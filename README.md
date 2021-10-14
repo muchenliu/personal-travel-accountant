@@ -21,9 +21,10 @@
 
 ## User Stories
 - As a user, I would want to be able to add an expense to my expense list
-- As a user, I would want to be able to delete an expense to my expense list
+- As a user, I would want to be able to delete an expense to my expense list (still has to been fixed)
 - As a user, I would want to be able to add a traveling partner to my traveling partners list
-- As a user, I would want to be able to delete a traveling partner to my traveling partners list 
+- As a user, I would want to be able to delete a traveling partner to my traveling partners list (still has to been 
+  fixed)
 - As a user, I would want to be able to check if I owe other traveling partner any money at the end of the trip
 - As a user, I would want to be able to check if any traveling partner has owed me money at the end of the trip
 - As a user, I would want to be able to input the budget before any expense

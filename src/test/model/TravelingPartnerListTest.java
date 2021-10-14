@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TravelingPartnerListTest {
@@ -147,6 +150,20 @@ public class TravelingPartnerListTest {
         assertEquals(30.77 + 10.98, tp1AmountIBorrowed);
         assertEquals(103, tp2AmountIBorrowed);
         assertEquals(tp3.amountIBorrowed, tp3AmountIBorrowed);
+    }
+
+    @Test
+    void testGetTravelingPartners() {
+        testTPList.addTravelingPartner(tp1);
+        testTPList.addTravelingPartner(tp2);
+        testTPList.addTravelingPartner(tp3);
+        TravelingPartnerList mimic = new TravelingPartnerList();
+        mimic.addTravelingPartner(tp1);
+        mimic.addTravelingPartner(tp2);
+        mimic.addTravelingPartner(tp3);
+        List<TravelingPartner> expected = mimic.getTravelingPartners();
+
+        assertEquals(expected, testTPList.getTravelingPartners());
     }
 
 
