@@ -52,7 +52,6 @@ public class TravelAccountantApp {
 
     // EFFECTS: displays main menu of options to user
     private void displayMainMenu() {
-        System.out.println("\nWhat are you planning to do?");
         System.out.println("\nPlease select from the following categories:");
         System.out.println("\te ->  expense");
         System.out.println("\ttp -> traveling partner");

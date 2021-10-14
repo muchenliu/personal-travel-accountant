@@ -157,13 +157,12 @@ public class TravelingPartnerListTest {
         testTPList.addTravelingPartner(tp1);
         testTPList.addTravelingPartner(tp2);
         testTPList.addTravelingPartner(tp3);
-        TravelingPartnerList mimic = new TravelingPartnerList();
-        mimic.addTravelingPartner(tp1);
-        mimic.addTravelingPartner(tp2);
-        mimic.addTravelingPartner(tp3);
-        List<TravelingPartner> expected = mimic.getTravelingPartners();
+        List<TravelingPartner> mimic = new LinkedList<>();
+        mimic.add(tp1);
+        mimic.add(tp2);
+        mimic.add(tp3);
 
-        assertEquals(expected, testTPList.getTravelingPartners());
+        assertEquals(mimic, testTPList.getTravelingPartners());
     }
 
 
