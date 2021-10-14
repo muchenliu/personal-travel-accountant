@@ -13,7 +13,6 @@ public class Expense {
     public Expense(double amount, String cname) {
         this.amount = amount;
         category = cname;
-        isCash = false;
     }
 
     //getter
@@ -24,12 +23,6 @@ public class Expense {
     //getter
     public String getCategory() {
         return category;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: set isCash to true to represent this expense is a cash expense
-    public void setCash() {
-        isCash = true;
     }
 
     //REQUIRES: the size of TravelingPartnerList must > 0 when the method is called

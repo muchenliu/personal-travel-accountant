@@ -159,7 +159,8 @@ public class TravelAccountantApp {
     private void displayCashMenu() {
         System.out.println("\nPlease select from the following categories:");
         System.out.println("\ta ->  record cash income");
-        System.out.println("\tb ->  check cash balance");
+        System.out.println("\tb ->  record cash expense");
+        System.out.println("\tc ->  check cash balance");
     }
 
     //MODIFIES: this
@@ -168,6 +169,8 @@ public class TravelAccountantApp {
         if (command.equals("a")) {
             cashIn();
         } else if (command.equals("b")) {
+            cashOut();
+        } else if (command.equals("c")) {
             cashLeft();
         } else {
             System.out.println("Selection not valid...");
@@ -342,6 +345,15 @@ public class TravelAccountantApp {
         System.out.println("Please enter the cash amount you gained : $");
         cashGain = input.nextDouble();
         cash = cash + cashGain;
+        System.out.println("You now have $" + cash + " cash");
+    }
+
+    //EFFECTS: subtract the cash expense to cash amount and print out the cash balance after added the cash subtracted
+    private void cashOut() {
+        double cashOut;
+        System.out.println("Please enter the cash amount you expended : $");
+        cashOut = input.nextDouble();
+        cash = cash - cashOut;
         System.out.println("You now have $" + cash + " cash");
     }
 

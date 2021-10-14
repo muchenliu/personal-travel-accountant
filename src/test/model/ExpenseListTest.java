@@ -12,6 +12,10 @@ public class ExpenseListTest {
     Expense expenseC = new Expense(40, "Living");
     Expense expenseD = new Expense(88.73, "Living");
     Expense expenseE = new Expense(58, "Food");
+    Expense expenseF = new Expense(58, "Living");
+    Expense expenseG = new Expense(8, "Food");
+
+
 
     @BeforeEach
     void setup() {
@@ -45,7 +49,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    void testRemoveExpense() {
+    void testRemoveExpenseReturnTrue() {
         testExpenseList.addExpense(expenseA);
         testExpenseList.addExpense(expenseB);
         testExpenseList.addExpense(expenseC);
@@ -68,7 +72,10 @@ public class ExpenseListTest {
         testExpenseList.removeExpense(expenseC);
 
         assertEquals(0, testExpenseList.count());
+    }
 
+    @Test
+    void testRemoveExpenseReturnFalse() {
         //remove expense from an empty list
         assertFalse(testExpenseList.removeExpense(expenseA));
 
@@ -79,6 +86,16 @@ public class ExpenseListTest {
         assertFalse(removeB);
         assertEquals(1, testExpenseList.count());
         assertEquals(expenseE, testExpenseList.getExpense(0));
+
+        //remove expense not in the list but has same getAmount() with one Expense in the list
+        boolean removeF = testExpenseList.removeExpense(expenseF);
+
+        assertFalse(removeF);
+
+        //remove expense not in the list but have same getCategory() with ine Expense in the list
+        boolean removeG = testExpenseList.removeExpense(expenseG);
+
+        assertFalse(removeG);
     }
 
     @Test
@@ -112,25 +129,5 @@ public class ExpenseListTest {
         assertEquals(expenseA.getAmount(), totalSouvenirs);
         assertEquals(expenseB.getAmount() + expenseE.getAmount(), totalFood);
         assertEquals(expenseC.getAmount() + expenseD.getAmount(), totalLiving);
-    }
-
-    @Test
-    void testTotalCashExpenseWithZeroCashExpense() {
-        assertEquals(0, testExpenseList.totalCashExpense());
-    }
-
-    @Test
-    void testTotalCashExpenseWithSomeCashExpense() {
-        expenseA.setCash();
-        expenseC.setCash();
-        expenseE.setCash();
-        testExpenseList.addExpense(expenseA);
-        testExpenseList.addExpense(expenseB);
-        testExpenseList.addExpense(expenseC);
-        testExpenseList.addExpense(expenseD);
-        testExpenseList.addExpense(expenseE);
-        double totalCashExp = testExpenseList.totalCashExpense();
-
-        assertEquals(expenseA.getAmount() + expenseC.getAmount() + expenseE.getAmount(), totalCashExp);
     }
 }

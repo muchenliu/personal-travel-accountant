@@ -21,13 +21,6 @@ class ExpenseTest {
     }
 
     @Test
-    void testSetCash() {
-        testExpense.setCash();
-
-        assertTrue(testExpense.isCash);
-    }
-
-    @Test
     void testSetSplitAmount() {
         TravelingPartner tp1 = new TravelingPartner("Annie");
         TravelingPartner tp2 = new TravelingPartner("Ben");

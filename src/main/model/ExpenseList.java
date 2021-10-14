@@ -64,16 +64,4 @@ public class ExpenseList {
         }
         return total;
     }
-
-    //EFFECTS: return the total cash expense in this expenseList
-    public double totalCashExpense() {
-        double total = 0;
-        for (Expense next : expenseList) {
-            if (next.isCash) {
-                total = total + next.getAmount();
-            }
-        }
-        return total;
-    }
-
 }
