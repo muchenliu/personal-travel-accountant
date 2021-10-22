@@ -25,7 +25,7 @@ public class ExpenseList {
     //EFFECTS: removes the given Expense from this expenseList, return false if the expense is not in the list
     public boolean removeExpense(Expense e) {
         for (Expense next : expenseList) {
-            if (next.getAmount() == e.getAmount() && next.getCategory() == e.getCategory()) {
+            if (next.getAmount() == e.getAmount() && next.getCategory().equals(e.getCategory())) {
                 expenseList.remove(e);
                 return true;
             }

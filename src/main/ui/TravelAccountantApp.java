@@ -263,8 +263,9 @@ public class TravelAccountantApp {
         wasteExpense = new Expense(amount, category);
         if (userExpenses.removeExpense(wasteExpense)) {
             System.out.println("The expense has been removed");
+        } else {
+            System.out.println("This expense does not exist");
         }
-        System.out.println("This expense does not exist");
     }
 
     //EFFECTS: print out total expense amount
@@ -318,8 +319,9 @@ public class TravelAccountantApp {
 
         if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
             System.out.println("The traveling partner has been removed");
+        } else {
+            System.out.println("This traveling partner does not exist");
         }
-        System.out.println("This traveling partner does not exist");
     }
 
     //EFFECTS: print out the amount each tp owed to user
