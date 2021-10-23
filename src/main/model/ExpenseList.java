@@ -5,7 +5,7 @@ import java.util.List;
 
 // Creates a list of Expense
 public class ExpenseList {
-    private List<Expense> expenseList;
+    private final List<Expense> expenseList;
 
     public ExpenseList() {
         expenseList = new LinkedList<>();
@@ -58,7 +58,7 @@ public class ExpenseList {
     public double totalExpenseInCategory(String cname) {
         double total = 0;
         for (Expense next : expenseList) {
-            if (next.getCategory() == cname) {
+            if (next.getCategory().equals(cname)) {
                 total = total + next.getAmount();
             }
         }

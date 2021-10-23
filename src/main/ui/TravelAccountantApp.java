@@ -247,6 +247,7 @@ public class TravelAccountantApp {
         }
     }
 
+    //REQUIRES: If the expense is a split amount, the input amount should be the amount that is split
     //MODIFIES: this
     //EFFECTS: remove correspond Expense if match the amount and category input of user input
     private void removeExpense() {
