@@ -254,7 +254,7 @@ public class TravelAccountantApp {
         String category;
         Expense wasteExpense;
 
-        System.out.println("Please enter the amount ant the category of expense you want to remove:");
+        System.out.println("Please enter the amount and the category of expense you want to remove:");
         System.out.println("Amount : ");
         amount = input.nextDouble();
         System.out.println("Category : ");

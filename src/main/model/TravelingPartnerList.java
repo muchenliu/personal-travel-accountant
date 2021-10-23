@@ -27,7 +27,7 @@ public class TravelingPartnerList {
     public boolean removeTravelingPartner(TravelingPartner tp) {
         for (TravelingPartner next : travelingPartners) {
             if (next.getName().equals(tp.getName())) {
-                travelingPartners.remove(tp);
+                travelingPartners.remove(next);
                 return true;
             }
         }

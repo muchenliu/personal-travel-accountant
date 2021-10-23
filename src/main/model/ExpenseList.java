@@ -26,7 +26,7 @@ public class ExpenseList {
     public boolean removeExpense(Expense e) {
         for (Expense next : expenseList) {
             if (next.getAmount() == e.getAmount() && next.getCategory().equals(e.getCategory())) {
-                expenseList.remove(e);
+                expenseList.remove(next);
                 return true;
             }
         }

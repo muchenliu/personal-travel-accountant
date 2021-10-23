@@ -27,7 +27,7 @@
 - As a user, I would want to be able to check if I owe other traveling partner any money at the end of the trip
 - As a user, I would want to be able to check if any traveling partner has owed me money at the end of the trip
 - As a user, I would want to be able to input the budget before any expense
-- As a user, I would want to be able to check my total expense and how much the budget lefts (still need to be fixed)
+- As a user, I would want to be able to check my total expense and how much the budget lefts
 - As a user, I would want to be able to check the expense on each category (still need to be fixed)
 - As a user, I would want to be able to input the cash I obtained at the beginning of the trip
 - As a user, I would want to be able to track my cash balance
