@@ -31,4 +31,8 @@
 - As a user, I would want to be able to check the expense on each category
 - As a user, I would want to be able to input the cash I obtained at the beginning of the trip
 - As a user, I would want to be able to track my cash balance
-- As a user, I would want to be able to add the cash withdrawals to current cash balance 
+- As a user, I would want to be able to add the cash withdrawals to current cash balance
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my records 
+  (budget, expenses, traveling partners, cash) to file and have the option to do so or not
+- As a user, when I start the application, I want to be given the option to load my records 
+  (budget, expenses, traveling partners, cash) from file.
