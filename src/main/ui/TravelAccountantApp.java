@@ -4,23 +4,30 @@ import model.Expense;
 import model.ExpenseList;
 import model.TravelingPartner;
 import model.TravelingPartnerList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.Objects;
 import java.util.Scanner;
 
 //travel accountant application
 public class TravelAccountantApp {
+    private static final String JSON_STORE = "./data/myFile.txt";
     private double budget;
     private double cash;
     private Scanner input;
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
         input = new Scanner(System.in);
         budget = 0;
         cash = 0;
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runTravelAccountant();
     }
 
@@ -316,9 +323,8 @@ public class TravelAccountantApp {
 
         System.out.println("Please enter the name of the traveling partner that you want to remove : ");
         givenName = input.next();
-        removeTP = new TravelingPartner(givenName);
 
-        if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
+        if (userTravelingPartnerList.removeTravelingPartner(givenName)) {
             System.out.println("The traveling partner has been removed");
         } else {
             System.out.println("This traveling partner does not exist");
@@ -328,7 +334,7 @@ public class TravelAccountantApp {
     //EFFECTS: print out the amount each tp owed to user
     private void printAmountOwed() {
         System.out.println("The amount each traveling partner owed to you are as following :");
-        for (TravelingPartner next : userTravelingPartnerList.getTravelingPartners()) {
+        for (TravelingPartner next : userTravelingPartnerList.getTravelingPartnerList()) {
             System.out.println(next.getName() + " : $" + next.getAmountOwedToMe());
         }
     }
@@ -336,7 +342,7 @@ public class TravelAccountantApp {
     //EFFECTS: print out the amount user borrowed from user
     private void printAmountBorrowed() {
         System.out.println("The amount you have borrowed from each traveling partner are as the following : ");
-        for (TravelingPartner next : userTravelingPartnerList.getTravelingPartners()) {
+        for (TravelingPartner next : userTravelingPartnerList.getTravelingPartnerList()) {
             System.out.println(next.getName() + " : " + next.getAmountIBorrowed());
         }
     }

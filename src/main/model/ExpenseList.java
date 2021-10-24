@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import persistence.Writable;
+
 import java.util.LinkedList;
 import java.util.List;
 
 // Creates a list of Expense
-public class ExpenseList {
+public class ExpenseList implements Writable {
     private final List<Expense> expenseList;
 
     public ExpenseList() {
@@ -63,5 +67,23 @@ public class ExpenseList {
             }
         }
         return total;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("expense list", expenseListToJson());
+        return json;
+    }
+
+    //EFFECTS: returns expenses in this expensesList as a Json array
+    private JSONArray expenseListToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Expense e : expenseList) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
     }
 }

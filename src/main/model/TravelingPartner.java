@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Creates a TravelingPartner having a name, amount that owe to the user, and amount that the user has borrowed from
 // (in dollars)
-public class TravelingPartner {
+public class TravelingPartner implements Writable {
     private String name;              // first name and abbreviation of middle name if necessary of the TravelingPartner
     protected double amountOwedToMe;  // amount the TravelingPartner has owed to the user
     protected double amountIBorrowed; // amount the user has borrowed from the TravelingPartner
@@ -42,5 +45,14 @@ public class TravelingPartner {
     //EFFECTS: add the input amount on current amountIBorrowed
     public void addAmountIBorrowed(double amount) {
         amountIBorrowed = amountIBorrowed + amount;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("amount owed to me", amountOwedToMe);
+        json.put("amount I borrowed", amountIBorrowed);
+        return json;
     }
 }

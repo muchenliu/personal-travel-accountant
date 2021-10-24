@@ -162,7 +162,7 @@ public class TravelingPartnerListTest {
         mimic.add(tp2);
         mimic.add(tp3);
 
-        assertEquals(mimic, testTPList.getTravelingPartners());
+        assertEquals(mimic, testTPList.getTravelingPartnerList());
     }
 
 

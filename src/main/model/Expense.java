@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Creates an Expense log includes amount (in dollars), category, isCash?, and isSplit?
-public class Expense {
+public class Expense implements Writable {
     private double amount;     // the amount of the Expense
     private final String category;   // the category the Expense belongs to
     protected boolean isCash;  // represents whether the Expense is a cash Expense
@@ -33,4 +36,12 @@ public class Expense {
         amount = amount / (TravelingPartnerList.count() + 1);
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("amount", amount);
+        json.put("category", category);
+        json.put("is cash?", isCash);
+        return json;
+    }
 }
