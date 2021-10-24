@@ -28,9 +28,9 @@ public class TravelingPartnerList implements Writable {
     //REQUIRES: tp must be in this travelingPartners
     //MODIFIES: this
     //EFFECTS: removes the given TravelingPartner from this travelingPartners
-    public boolean removeTravelingPartner(String givenName) {
+    public boolean removeTravelingPartner(TravelingPartner tp) {
         for (TravelingPartner next : travelingPartnerList) {
-            if (next.getName().equals(givenName)) {
+            if (next.getName().equals(tp.getName())) {
                 travelingPartnerList.remove(next);
                 return true;
             }

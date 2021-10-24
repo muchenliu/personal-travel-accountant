@@ -323,8 +323,9 @@ public class TravelAccountantApp {
 
         System.out.println("Please enter the name of the traveling partner that you want to remove : ");
         givenName = input.next();
+        removeTP = new TravelingPartner(givenName);
 
-        if (userTravelingPartnerList.removeTravelingPartner(givenName)) {
+        if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
             System.out.println("The traveling partner has been removed");
         } else {
             System.out.println("This traveling partner does not exist");
