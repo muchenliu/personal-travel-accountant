@@ -42,14 +42,21 @@ public class JsonReader {
 
     // EFFECTS: reads cash amount form file and returns it,
     //          throws IOException if an error occurs reading data from file
-    public double readCash() throws IOException {
+    public double readAndParseCash() throws IOException {
         String cashData = readFile(source);
-        double cashAmount = Double.parseDouble(cashData);
+        JSONObject jsonObject = new JSONObject(cashData);
+        double cashAmount = jsonObject.getDouble("cash");
         return cashAmount;
     }
 
     // EFFECTS: reads budget amount from file and returns it
     //          throws IOException if an error occurs reading data from file
+    public double readAndParseBudget() throws IOException {
+        String budgetData = readFile(source);
+        JSONObject jsonObject = new JSONObject(budgetData);
+        double budgetAmount = jsonObject.getDouble("budget");
+        return budgetAmount;
+    }
 
 
     // method readFile() copied from the JsonSerializationDemo project from CPSC210 GitHub

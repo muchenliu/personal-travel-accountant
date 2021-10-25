@@ -124,7 +124,25 @@ public class JsonWriterTest extends JsonTest {
         } catch (IOException e) {
             fail("not expected to throw IOException");
         }
+    }
 
+    @Test
+    public void testWriterUserCashZeroDollar() {
+        try {
+            double cash = 0;
+            JsonWriter writer = new JsonWriter("./data/testWriterUserCashZeroDollar.txt");
+            writer.openWriter();
+            writer.writeUserCash(cash);
+            writer.close();
 
+            JsonReader reader = new JsonReader("./data/testWriterUserCashZeroDollar.txt");
+            cash = reader.readAndParseCash();
+
+            assertEquals(0, cash);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
     }
 }
