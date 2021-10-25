@@ -9,19 +9,19 @@ public class TravelingPartnerTest {
     TravelingPartner testTP;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         testTP = new TravelingPartner("Danny");
     }
 
     @Test
-    void testTravelingPartner() {
+    public void testTravelingPartner() {
         assertEquals("Danny", testTP.getName());
         assertEquals(0, testTP.getAmountOwedToMe());
         assertEquals(0, testTP.getAmountIBorrowed());
     }
 
     @Test
-    void testAddAmountOwedToMe() {
+    public void testAddAmountOwedToMe() {
         //add from zero
         testTP.addAmountOwedToMe(30);
 
@@ -34,7 +34,7 @@ public class TravelingPartnerTest {
     }
 
     @Test
-    void testAddAmountIBorrowed() {
+    public void testAddAmountIBorrowed() {
         //add from zero
         testTP.addAmountIBorrowed(99);
 

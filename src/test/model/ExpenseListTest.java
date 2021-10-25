@@ -18,12 +18,12 @@ public class ExpenseListTest {
 
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         testExpenseList = new ExpenseList();
     }
 
     @Test
-    void testAddExpense() {
+    public void testAddExpense() {
         // add one expense to empty expenseList
         testExpenseList.addExpense(expenseA);
 
@@ -49,7 +49,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    void testRemoveExpenseReturnTrue() {
+    public void testRemoveExpenseReturnTrue() {
         testExpenseList.addExpense(expenseA);
         testExpenseList.addExpense(expenseB);
         testExpenseList.addExpense(expenseC);
@@ -75,7 +75,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    void testRemoveExpenseReturnFalse() {
+    public void testRemoveExpenseReturnFalse() {
         //remove expense from an empty list
         assertFalse(testExpenseList.removeExpense(expenseA));
 
@@ -99,14 +99,14 @@ public class ExpenseListTest {
     }
 
     @Test
-    void testTotalExpenseWithEmptyExpenseList() {
+    public void testTotalExpenseWithEmptyExpenseList() {
         double total = testExpenseList.totalExpense();
 
         assertEquals(0, total);
     }
 
     @Test
-    void testTotalExpenseWithNonEmptyExpenseList() {
+    public void testTotalExpenseWithNonEmptyExpenseList() {
         testExpenseList.addExpense(expenseA);
         testExpenseList.addExpense(expenseB);
         testExpenseList.addExpense(expenseC);
@@ -116,7 +116,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    void testTotalExpenseInCategory() {
+    public void testTotalExpenseInCategory() {
         testExpenseList.addExpense(expenseA);
         testExpenseList.addExpense(expenseB);
         testExpenseList.addExpense(expenseC);

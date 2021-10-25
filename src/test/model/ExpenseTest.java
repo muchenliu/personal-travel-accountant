@@ -5,22 +5,22 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExpenseTest {
+public class ExpenseTest {
     Expense testExpense;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         testExpense = new Expense(19.75, "Food");
     }
 
     @Test
-    void testExpense() {
+   public void testExpense() {
         assertEquals(19.75, testExpense.getAmount());
         assertEquals("Food", testExpense.getCategory());
     }
 
     @Test
-    void testSetSplitAmount() {
+    public void testSetSplitAmount() {
         TravelingPartner tp1 = new TravelingPartner("Annie");
         TravelingPartner tp2 = new TravelingPartner("Ben");
         TravelingPartnerList tpList = new TravelingPartnerList();

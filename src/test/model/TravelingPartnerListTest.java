@@ -16,12 +16,12 @@ public class TravelingPartnerListTest {
 
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         testTPList = new TravelingPartnerList();
     }
 
     @Test
-    void testAddTravelingPartner() {
+    public void testAddTravelingPartner() {
         //add one tp to an empty travelingPartnerList
         testTPList.addTravelingPartner(tp1);
 
@@ -47,7 +47,7 @@ public class TravelingPartnerListTest {
     }
 
     @Test
-    void testRemoveTravelingPartner() {
+    public void testRemoveTravelingPartner() {
         testTPList.addTravelingPartner(tp1);
         testTPList.addTravelingPartner(tp2);
         testTPList.addTravelingPartner(tp3);
@@ -84,7 +84,7 @@ public class TravelingPartnerListTest {
     }
 
     @Test
-    void testAddSplitExpenseAmountOwedToMeFromNoAmountOwed() {
+    public void testAddSplitExpenseAmountOwedToMeFromNoAmountOwed() {
         testTPList.addTravelingPartner(tp1);
         testTPList.addTravelingPartner(tp2);
         testTPList.addTravelingPartner(tp3);
@@ -101,7 +101,7 @@ public class TravelingPartnerListTest {
     }
 
     @Test
-    void testAddSplitExpenseAmountOwedToMeFromRandomAmountOwed() {
+    public void testAddSplitExpenseAmountOwedToMeFromRandomAmountOwed() {
         tp1.addAmountOwedToMe(10.98);
         tp2.addAmountOwedToMe(3);
         tp3.addAmountOwedToMe(1000);
@@ -119,7 +119,7 @@ public class TravelingPartnerListTest {
     }
 
     @Test
-    void testAddSplitExpenseAmountIBorrowedFromNoAmountBorrowed() {
+    public void testAddSplitExpenseAmountIBorrowedFromNoAmountBorrowed() {
         testTPList.addTravelingPartner(tp1);
         testTPList.addTravelingPartner(tp2);
         testTPList.addTravelingPartner(tp3);
@@ -134,7 +134,7 @@ public class TravelingPartnerListTest {
     }
 
     @Test
-    void testAddSplitExpenseAmountIBorrowedFromRandomAmountBorrowed() {
+    public void testAddSplitExpenseAmountIBorrowedFromRandomAmountBorrowed() {
         tp1.addAmountIBorrowed(10.98);
         tp2.addAmountIBorrowed(3);
         tp3.addAmountIBorrowed(1000);
@@ -153,7 +153,7 @@ public class TravelingPartnerListTest {
     }
 
     @Test
-    void testGetTravelingPartners() {
+    public void testGetTravelingPartners() {
         testTPList.addTravelingPartner(tp1);
         testTPList.addTravelingPartner(tp2);
         testTPList.addTravelingPartner(tp3);

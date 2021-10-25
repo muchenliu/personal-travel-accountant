@@ -60,7 +60,7 @@ public class JsonReader {
         ExpenseList expenseList = new ExpenseList();
 
         for (Object json : jsonArray) {
-            JSONObject nextExpense = new JSONObject(json);
+            JSONObject nextExpense = (JSONObject) json;  //we do not create a new JASONObject here
             addExpense(expenseList, nextExpense);
         }
 
@@ -82,7 +82,7 @@ public class JsonReader {
         TravelingPartnerList tpList = new TravelingPartnerList();
 
         for (Object json : jsonArray) {
-            JSONObject nextTP = new JSONObject(json);
+            JSONObject nextTP = (JSONObject) json;   //we do not create a new JASONObject here
             addTravelingPartner(tpList, nextTP);
         }
 
