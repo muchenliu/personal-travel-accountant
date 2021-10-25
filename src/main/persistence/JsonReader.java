@@ -40,6 +40,17 @@ public class JsonReader {
         return parseTPList(jsonObject);
     }
 
+    // EFFECTS: reads cash amount form file and returns it,
+    //          throws IOException if an error occurs reading data from file
+    public double readCash() throws IOException {
+        String cashData = readFile(source);
+        double cashAmount = Double.parseDouble(cashData);
+        return cashAmount;
+    }
+
+    // EFFECTS: reads budget amount from file and returns it
+    //          throws IOException if an error occurs reading data from file
+
 
     // method readFile() copied from the JsonSerializationDemo project from CPSC210 GitHub
     //https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
