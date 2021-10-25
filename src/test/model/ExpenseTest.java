@@ -15,7 +15,7 @@ public class ExpenseTest {
     }
 
     @Test
-   public void testExpense() {
+    public void testExpense() {
         assertEquals(19.75, testExpense.getAmount());
         assertEquals("Food", testExpense.getCategory());
     }

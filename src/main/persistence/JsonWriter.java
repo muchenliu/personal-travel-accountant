@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 // and userTravelingPartnerList to "./data/myFile/.txt"
 public class JsonWriter {
     private static final int TAB = 4; //an indentFactor when writes JSON to file, this
-                                      // insert tab between each object been written into file
+    // insert tab between each object been written into file
     private PrintWriter writer;
     private String destination;
 
@@ -50,10 +50,6 @@ public class JsonWriter {
     public void close() {
         writer.close();
     }
-
-
-
-
 
 
 }

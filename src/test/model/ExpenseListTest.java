@@ -19,7 +19,6 @@ public class ExpenseListTest {
     Expense expenseG = new Expense(8, "Food");
 
 
-
     @BeforeEach
     public void setup() {
         testExpenseList = new ExpenseList();
@@ -141,7 +140,7 @@ public class ExpenseListTest {
 
 
         JSONObject jsonObject = testExpenseList.toJson();
-        JSONArray  jsonArray = jsonObject.getJSONArray("expense list");
+        JSONArray jsonArray = jsonObject.getJSONArray("expense list");
         JSONObject jsonA = jsonArray.getJSONObject(0);
         JSONObject jsonB = jsonArray.getJSONObject(1);
 
