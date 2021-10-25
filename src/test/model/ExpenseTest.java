@@ -17,7 +17,6 @@ class ExpenseTest {
     void testExpense() {
         assertEquals(19.75, testExpense.getAmount());
         assertEquals("Food", testExpense.getCategory());
-        assertFalse(testExpense.isCash);
     }
 
     @Test

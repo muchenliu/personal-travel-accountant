@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 //travel accountant application
 public class TravelAccountantApp {
-    private static final String JSON_STORE = "./data/myFile.txt";
+    private static final String JSON_STORE = "./data/myFile/.txt";
     private double budget;
     private double cash;
     private Scanner input;

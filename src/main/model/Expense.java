@@ -3,11 +3,10 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
-// Creates an Expense log includes amount (in dollars), category, isCash?, and isSplit?
+// Creates an Expense log includes amount (in dollars) and category
 public class Expense implements Writable {
     private double amount;     // the amount of the Expense
     private final String category;   // the category the Expense belongs to
-    protected boolean isCash;  // represents whether the Expense is a cash Expense
 
     //REQUIRES: if distinct expenses are under the same category (e.g. launch expense, dinner expense, treat expense,
     //          and afternoon tea expense are all under the "Food" category; each hotel/Airbnb expense are under the
@@ -41,7 +40,6 @@ public class Expense implements Writable {
         JSONObject json = new JSONObject();
         json.put("amount", amount);
         json.put("category", category);
-        json.put("is cash?", isCash);
         return json;
     }
 }
