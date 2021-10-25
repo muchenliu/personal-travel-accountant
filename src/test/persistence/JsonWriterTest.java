@@ -27,7 +27,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    public void testWriterEmptyExpenseLst() {
+    public void testWriterEmptyExpenseList() {
         try {
             ExpenseList expenseList = new ExpenseList();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyExpenseList.txt");

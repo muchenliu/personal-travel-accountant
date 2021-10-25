@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -130,4 +133,22 @@ public class ExpenseListTest {
         assertEquals(expenseB.getAmount() + expenseE.getAmount(), totalFood);
         assertEquals(expenseC.getAmount() + expenseD.getAmount(), totalLiving);
     }
+
+    @Test
+    public void testToJson() {
+        testExpenseList.addExpense(expenseA);
+        testExpenseList.addExpense(expenseB);
+
+
+        JSONObject jsonObject = testExpenseList.toJson();
+        JSONArray  jsonArray = jsonObject.getJSONArray("expense list");
+        JSONObject jsonA = jsonArray.getJSONObject(0);
+        JSONObject jsonB = jsonArray.getJSONObject(1);
+
+        assertEquals(expenseA.getAmount(), jsonA.getDouble("amount"));
+        assertEquals(expenseA.getCategory(), jsonA.getString("category"));
+        assertEquals(expenseB.getAmount(), jsonB.getDouble("amount"));
+        assertEquals(expenseB.getCategory(), jsonB.getString("category"));
+    }
+
 }

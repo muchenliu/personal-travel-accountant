@@ -41,7 +41,7 @@ public class JsonWriter {
     //EFFECTS: writes the JSON representation of userTravelingPartnerList to file
     public void writeUserTravelingPartnerList(TravelingPartnerList tpList) {
         JSONObject json = tpList.toJson();   //calls TravelingPartnerList Class method toJson()
-        String toSave = json.toString();
+        String toSave = json.toString(TAB);
         writer.print(toSave);
     }
 

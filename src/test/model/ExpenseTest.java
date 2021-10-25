@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,5 +30,13 @@ public class ExpenseTest {
         testExpense.setSplitAmount();
 
         assertEquals(19.75 / 3, testExpense.getAmount());
+    }
+
+    @Test
+    public void testToJson() {
+        JSONObject json = testExpense.toJson();
+
+        assertEquals(testExpense.getAmount(), json.getDouble("amount"));
+        assertEquals(testExpense.getCategory(), json.getString("category"));
     }
 }

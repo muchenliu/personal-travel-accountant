@@ -1,0 +1,10 @@
+{"expense list": [
+    {
+        "amount": 35.75,
+        "category": "Game"
+    },
+    {
+        "amount": 1000,
+        "category": "Living"
+    }
+]}

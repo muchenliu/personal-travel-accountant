@@ -1,0 +1,12 @@
+{"traveling partners": [
+    {
+        "amount owed to me": 5,
+        "amount I borrowed": 15.5,
+        "name": "Ken"
+    },
+    {
+        "amount owed to me": 44,
+        "amount I borrowed": 300,
+        "name": "Doris"
+    }
+]}

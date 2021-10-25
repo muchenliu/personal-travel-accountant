@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -163,6 +165,26 @@ public class TravelingPartnerListTest {
         mimic.add(tp3);
 
         assertEquals(mimic, testTPList.getTravelingPartnerList());
+    }
+
+    @Test
+    public void testToJson() {
+        tp1.addAmountOwedToMe(100);
+        tp1.addAmountIBorrowed(5);
+        testTPList.addTravelingPartner(tp1);
+        testTPList.addTravelingPartner(tp2);
+
+        JSONObject jsonObject = testTPList.toJson();
+        JSONArray jsonArray = jsonObject.getJSONArray("traveling partners");
+        JSONObject json0 = jsonArray.getJSONObject(0);
+        JSONObject json1 = jsonArray.getJSONObject(1);
+
+        assertEquals(tp1.getName(), json0.getString("name"));
+        assertEquals(tp1.getAmountOwedToMe(), json0.getDouble("amount owed to me"));
+        assertEquals(tp1.getAmountIBorrowed(), json0.getDouble("amount I borrowed"));
+        assertEquals(tp2.getName(), json1.getString("name"));
+        assertEquals(tp2.getAmountOwedToMe(), json1.getDouble("amount owed to me"));
+        assertEquals(tp2.getAmountIBorrowed(), json1.getDouble("amount I borrowed"));
     }
 
 

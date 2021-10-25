@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,5 +45,17 @@ public class TravelingPartnerTest {
         testTP.addAmountIBorrowed(38.5);
 
         assertEquals(137.5, testTP.getAmountIBorrowed());
+    }
+
+    @Test
+    public void testToJson() {
+        testTP.addAmountOwedToMe(13.75);
+        testTP.addAmountIBorrowed(45);
+
+        JSONObject json = testTP.toJson();
+
+        assertEquals(testTP.getName(), json.getString("name"));
+        assertEquals(testTP.getAmountOwedToMe(), json.getDouble("amount owed to me"));
+        assertEquals(testTP.getAmountIBorrowed(), json.getDouble("amount I borrowed"));
     }
 }
