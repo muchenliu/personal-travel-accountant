@@ -13,8 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-// Represents a reader that reads expense list and traveling partner list
-// from JSON data stored in  "./data/myFile/.txt"
+// Represents a reader that reads expense list from JSON data stored in  "./data/myFile/expenseList.txt"
+// and traveling partner list from JSON data stored in "./data/myFile/travelingPartnerList.txt"
 public class JsonReader {
     private String source;
 

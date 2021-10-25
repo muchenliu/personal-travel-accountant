@@ -8,8 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Represents a writer that writes JSON representation of userExpenseList
-// and userTravelingPartnerList to "./data/myFile/.txt"
+// Represents a writer that writes JSON representation of userExpenseList to  "./data/myFile/expenseList.txt"
+// and userTravelingPartnerList to "./data/myFile/travelingPartnerList.txt"
 public class JsonWriter {
     private static final int TAB = 4; //an indentFactor when writes JSON to file, this
     // insert tab between each object been written into file

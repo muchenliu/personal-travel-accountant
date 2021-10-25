@@ -12,22 +12,27 @@ import java.util.Scanner;
 
 //travel accountant application
 public class TravelAccountantApp {
-    private static final String JSON_STORE = "./data/myFile/.txt";
+    private static final String JSON_EXPENSE_LIST_STORE = "./data/myFile/expenseList.txt";
+    private static final String JSON_TRAVELING_PARTNER_LIST_STORE = "./data/myFile/travelingPartnerList.txt";
     private double budget;
     private double cash;
     private Scanner input;
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private JsonWriter userExpenseListJsonWriter;
+    private JsonReader userExpenseListJsonReader;
+    private JsonWriter userTravelingPartnerListJsonWriter;
+    private JsonReader userTravelingPartnerListJsonReader;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
         input = new Scanner(System.in);
         budget = 0;
         cash = 0;
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        userExpenseListJsonWriter = new JsonWriter(JSON_EXPENSE_LIST_STORE);
+        userExpenseListJsonReader = new JsonReader(JSON_EXPENSE_LIST_STORE);
+        userTravelingPartnerListJsonWriter = new JsonWriter(JSON_TRAVELING_PARTNER_LIST_STORE);
+        userTravelingPartnerListJsonReader = new JsonReader(JSON_TRAVELING_PARTNER_LIST_STORE);
         runTravelAccountant();
     }
 
