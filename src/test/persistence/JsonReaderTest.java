@@ -19,6 +19,10 @@ public class JsonReaderTest extends JsonTest {
             fail("expect to catch IOException");
             TravelingPartnerList tpList = reader.readTPList();
             fail("expect to catch IOException");
+            double cash = reader.readAndParseCash();
+            fail("expect to catch IOException");
+            double budget = reader.readAndParseBudget();
+            fail("expect to catch IOException");
 
         } catch (IOException e) {
             //test pass
@@ -83,6 +87,66 @@ public class JsonReaderTest extends JsonTest {
                     ("Ken", 5, 15.5, tpList.getTravelingPartner(0));
             checkTravelingPartner
                     ("Doris", 44, 300, tpList.getTravelingPartner(1));
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
+    @Test
+    public void testReaderUserCashZeroDollar() {
+        JsonReader reader = new JsonReader("./data/testReaderUserCashZeroDollar.txt");
+
+        try {
+            double cash = reader.readAndParseCash();
+
+            assertEquals(0, cash);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
+    @Test
+    public void testReaderUserBudgetZeroDollar() {
+        JsonReader reader = new JsonReader("./data/testReaderUserBudgetZeroDollar.txt");
+
+        try {
+            double budget = reader.readAndParseBudget();
+
+            assertEquals(0, budget);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
+    @Test
+    public void testReaderGeneralUserCash() {
+        JsonReader reader = new JsonReader("./data/testReaderGeneralUserCash.txt");
+
+        try {
+            double cash = reader.readAndParseCash();
+
+            assertEquals(29.99, cash);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
+    @Test
+    public void testReaderGeneralUserBudget() {
+        JsonReader reader = new JsonReader("./data/testReaderGeneralUserBudget.txt");
+
+        try {
+            double budget = reader.readAndParseBudget();
+
+            assertEquals(3780, budget);
             //test pass
 
         } catch (IOException e) {

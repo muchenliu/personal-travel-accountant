@@ -145,4 +145,65 @@ public class JsonWriterTest extends JsonTest {
             fail("not expected to throw IOException");
         }
     }
+
+    @Test
+    public void testWriterUserBudgetZeroDollar() {
+        try {
+            double budget = 0;
+            JsonWriter writer = new JsonWriter("./data/testWriterUserBudgetZeroDollar.txt");
+            writer.openWriter();
+            writer.writeUserBudget(budget);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterUserBudgetZeroDollar.txt");
+            budget = reader.readAndParseBudget();
+
+            assertEquals(0, budget);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
+    @Test
+    public void testWriterGeneralUserCash() {
+        try {
+            double cash = 35.5;
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralUserCash.txt");
+            writer.openWriter();
+            writer.writeUserCash(cash);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterGeneralUserCash.txt");
+            cash = reader.readAndParseCash();
+
+            assertEquals(35.5, cash);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
+    @Test
+    public void testWriterGeneralUserBudget() {
+        try {
+            double budget = 10000;
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralUserBudget.txt");
+            writer.openWriter();
+            writer.writeUserBudget(budget);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterGeneralUserBudget.txt");
+            budget = reader.readAndParseBudget();
+
+            assertEquals(10000, budget);
+            //test pass
+
+        } catch (IOException e) {
+            fail("not expected to throw IOException");
+        }
+    }
+
 }

@@ -54,7 +54,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes the JSON representation of Budgest amount to file
+    // EFFECTS: writes the JSON representation of Budget amount to file
     public void writeUserBudget(double budget) {
         JSONObject json = new JSONObject();
         json.put("budget", budget);

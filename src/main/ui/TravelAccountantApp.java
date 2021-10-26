@@ -7,6 +7,8 @@ import model.TravelingPartnerList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -14,15 +16,21 @@ import java.util.Scanner;
 public class TravelAccountantApp {
     private static final String JSON_EXPENSE_LIST_STORE = "./data/myFile/expenseList.txt";
     private static final String JSON_TRAVELING_PARTNER_LIST_STORE = "./data/myFile/travelingPartnerList.txt";
+    private static final String JSON_BUDGET_STORE = "./data/myFile/budget.txt";
+    private static final String JSON_CASH_STORE = "./data/myFile/cash.txt";
     private double budget;
     private double cash;
-    private Scanner input;
+    private final Scanner input;
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
-    private JsonWriter userExpenseListJsonWriter;
-    private JsonReader userExpenseListJsonReader;
-    private JsonWriter userTravelingPartnerListJsonWriter;
-    private JsonReader userTravelingPartnerListJsonReader;
+    private final JsonWriter userExpenseListJsonWriter;
+    private final JsonReader userExpenseListJsonReader;
+    private final JsonWriter userTravelingPartnerListJsonWriter;
+    private final JsonReader userTravelingPartnerListJsonReader;
+    private final JsonWriter userBudgetJsonWriter;
+    private final JsonReader userBudgetJsonReader;
+    private final JsonWriter userCashJsonWriter;
+    private final JsonReader userCashJsonReader;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -33,6 +41,10 @@ public class TravelAccountantApp {
         userExpenseListJsonReader = new JsonReader(JSON_EXPENSE_LIST_STORE);
         userTravelingPartnerListJsonWriter = new JsonWriter(JSON_TRAVELING_PARTNER_LIST_STORE);
         userTravelingPartnerListJsonReader = new JsonReader(JSON_TRAVELING_PARTNER_LIST_STORE);
+        userBudgetJsonWriter = new JsonWriter(JSON_BUDGET_STORE);
+        userBudgetJsonReader = new JsonReader(JSON_BUDGET_STORE);
+        userCashJsonWriter = new JsonWriter(JSON_CASH_STORE);
+        userCashJsonReader = new JsonReader(JSON_CASH_STORE);
         runTravelAccountant();
     }
 
@@ -41,10 +53,8 @@ public class TravelAccountantApp {
     private void runTravelAccountant() {
         System.out.println("Welcome to your Personal Traveling Accountant!");
         System.out.println("We keeps eye on your expense and help you manage your trip more easier!");
-        System.out.println("Please enter your Budget : ");
-        budget = input.nextDouble();
-        System.out.println("Please enter your current Cash amount : ");
-        cash = input.nextDouble();
+        System.out.println("Do you want to load Teller Accountant data from file?");
+        processLoadFile();
 
         boolean keepGoing = true;
         while (keepGoing) {
@@ -66,13 +76,14 @@ public class TravelAccountantApp {
     private void displayMainMenu() {
         System.out.println("\nPlease select from the following categories:");
         System.out.println("\te ->  expense");
-        System.out.println("\ttp -> traveling partner");
+        System.out.println("\tt ->  traveling partner");
         System.out.println("\tc ->  cash");
+        System.out.println("\ts ->  save data to file");
         System.out.println("\tq ->  quit");
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes main user command
+    //MODIFIES: this
+    //EFFECTS: processes main user command
     private void processMainCommand(String command) {
         if (command.equals("e")) {
             runExpense();
@@ -80,9 +91,81 @@ public class TravelAccountantApp {
             runTravelingPartner();
         } else if (command.equals("c")) {
             runCash();
+        } else if (command.equals("s")) {
+            saveTellerAccountantData();
         } else {
             System.out.println("Selection not valid...");
         }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: displays load file option to user and processes the
+    private void processLoadFile() {
+        System.out.println("Please enter 'y' for yes or 'n' for no: ");
+        String command = input.next();
+
+        if (command.equals("y")) {
+            loadTellerAccountantData();
+        } else if (!command.equals("n")) {
+            System.out.println("Selection not valid...");
+            processLoadFile();
+        } else {
+            System.out.println("Please enter your Budget : ");
+            budget = input.nextDouble();
+            System.out.println("Please enter your current Cash amount : ");
+            cash = input.nextDouble();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: load expenseList, travelingPartnerList, cash, budget data from file
+    private void loadTellerAccountantData() {
+        try {
+            userExpenses = userExpenseListJsonReader.readExpenseList();
+            System.out.println("Loaded expense list from " + JSON_EXPENSE_LIST_STORE);
+
+            userTravelingPartnerList = userTravelingPartnerListJsonReader.readTPList();
+            System.out.println("Loaded traveling partner list from " + JSON_TRAVELING_PARTNER_LIST_STORE);
+
+            budget = userBudgetJsonReader.readAndParseBudget();
+            System.out.println("Loaded budget amount from " + JSON_BUDGET_STORE);
+
+            cash = userCashJsonReader.readAndParseCash();
+            System.out.println("Loaded cash amount from " + JSON_CASH_STORE);
+
+        } catch (IOException e) {
+            System.out.println("Sorry, unable to read from file.");
+        }
+    }
+
+    //EFFECTS: save expenseList, travelingPartnerList, cash, budget data to file
+    private void saveTellerAccountantData() {
+        try {
+            userExpenseListJsonWriter.openWriter();
+            userExpenseListJsonWriter.writeUserExpenseList(userExpenses);
+            userExpenseListJsonWriter.close();
+            System.out.println("Saved expense list to " + JSON_EXPENSE_LIST_STORE);
+
+            userTravelingPartnerListJsonWriter.openWriter();
+            userTravelingPartnerListJsonWriter.writeUserTravelingPartnerList(userTravelingPartnerList);
+            userTravelingPartnerListJsonWriter.close();
+            System.out.println("Saved traveling partner list to " + JSON_TRAVELING_PARTNER_LIST_STORE);
+
+            userBudgetJsonWriter.openWriter();
+            userBudgetJsonWriter.writeUserBudget(budget);
+            userBudgetJsonWriter.close();
+            System.out.println("Saved budget amount to " + JSON_BUDGET_STORE);
+
+            userCashJsonWriter.openWriter();
+            userCashJsonWriter.writeUserCash(cash);
+            userCashJsonWriter.close();
+            System.out.println("Saved cash amount to " + JSON_CASH_STORE);
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Sorry, unable to write to file.");
+        }
+
     }
 
     //MODIFIES: this
