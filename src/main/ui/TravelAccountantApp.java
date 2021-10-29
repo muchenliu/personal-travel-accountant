@@ -87,7 +87,7 @@ public class TravelAccountantApp {
     private void processMainCommand(String command) {
         if (command.equals("e")) {
             runExpense();
-        } else if (command.equals("tp")) {
+        } else if (command.equals("t")) {
             runTravelingPartner();
         } else if (command.equals("c")) {
             runCash();
