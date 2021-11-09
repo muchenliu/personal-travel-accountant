@@ -18,11 +18,6 @@ public class TravelAccountantApp {
     private static final String JSON_TRAVELING_PARTNER_LIST_STORE = "./data/myFile/travelingPartnerList.txt";
     private static final String JSON_BUDGET_STORE = "./data/myFile/budget.txt";
     private static final String JSON_CASH_STORE = "./data/myFile/cash.txt";
-    private double budget;
-    private double cash;
-    private final Scanner input;
-    private ExpenseList userExpenses = new ExpenseList();
-    private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
     private final JsonWriter userExpenseListJsonWriter;
     private final JsonReader userExpenseListJsonReader;
     private final JsonWriter userTravelingPartnerListJsonWriter;
@@ -31,6 +26,14 @@ public class TravelAccountantApp {
     private final JsonReader userBudgetJsonReader;
     private final JsonWriter userCashJsonWriter;
     private final JsonReader userCashJsonReader;
+
+    private double budget;
+    private double cash;
+    private final Scanner input;
+    private ExpenseList userExpenses = new ExpenseList();
+    private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
+
+    private VisionComponentsManager visionComponentsManager;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -45,12 +48,14 @@ public class TravelAccountantApp {
         userBudgetJsonReader = new JsonReader(JSON_BUDGET_STORE);
         userCashJsonWriter = new JsonWriter(JSON_CASH_STORE);
         userCashJsonReader = new JsonReader(JSON_CASH_STORE);
+        visionComponentsManager = new VisionComponentsManager();
         runTravelAccountant();
     }
 
     //MODIFIES: this
     //EFFECTS: process user inputs of the main page of the app
     private void runTravelAccountant() {
+        visionComponentsManager.displayWelcomeImage();
         System.out.println("Welcome to your Personal Traveling Accountant!");
         System.out.println("We keeps eye on your expense and help you manage your trip more easier!");
         System.out.println("Do you want to load Teller Accountant data from file?");
@@ -69,6 +74,7 @@ public class TravelAccountantApp {
             }
         }
 
+        visionComponentsManager.displayGoodbyeImage();
         System.out.println("See you next time! Have a wonderful trip :)");
     }
 

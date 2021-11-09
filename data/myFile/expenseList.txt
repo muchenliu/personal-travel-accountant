@@ -1,14 +1,1 @@
-{"expense list": [
-    {
-        "amount": 1169.6666666666667,
-        "category": "Living"
-    },
-    {
-        "amount": 300,
-        "category": "Food"
-    },
-    {
-        "amount": 1000,
-        "category": "Game"
-    }
-]}
+{"expense list": []}

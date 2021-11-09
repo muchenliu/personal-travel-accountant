@@ -1,12 +1,1 @@
-{"traveling partners": [
-    {
-        "amount owed to me": 1169.6666666666667,
-        "amount I borrowed": 0,
-        "name": "Pam"
-    },
-    {
-        "amount owed to me": 1169.6666666666667,
-        "amount I borrowed": 1000,
-        "name": "Jason"
-    }
-]}
+{"traveling partners": []}
