@@ -5,10 +5,11 @@ import model.TravelingPartnerList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-// Manage the loading and saving data events includes the gui panel
+// Manage the loading and saving data events
 public class LoadAndSaveDataManager {
     private double budget;
     private double cash;
@@ -51,6 +52,7 @@ public class LoadAndSaveDataManager {
         cash = 0;
         userExpenses = new ExpenseList();
         userTravelingPartnerList = new TravelingPartnerList();
+
         userExpenseListJsonWriter = new JsonWriter(JSON_EXPENSE_LIST_STORE);
         userExpenseListJsonReader = new JsonReader(JSON_EXPENSE_LIST_STORE);
         userTravelingPartnerListJsonWriter = new JsonWriter(JSON_TRAVELING_PARTNER_LIST_STORE);

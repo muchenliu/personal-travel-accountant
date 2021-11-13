@@ -4,11 +4,8 @@ import model.Expense;
 import model.ExpenseList;
 import model.TravelingPartner;
 import model.TravelingPartnerList;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -23,6 +20,9 @@ public class TravelAccountantApp {
     private LoadAndSaveDataManager loadAndSaveDataManager;
     private VisionComponentsManager visionComponentsManager;
 
+    private JFrame loadDataFrame;
+    private JFrame saveDataFrame;
+
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
         input = new Scanner(System.in);
@@ -30,6 +30,8 @@ public class TravelAccountantApp {
         cash = 0;
         loadAndSaveDataManager = new LoadAndSaveDataManager();
         visionComponentsManager = new VisionComponentsManager();
+        loadDataFrame = new JFrame();
+        saveDataFrame = new JFrame();
         runTravelAccountant();
     }
 
@@ -56,7 +58,6 @@ public class TravelAccountantApp {
         visionComponentsManager.displayWelcomeImage();
         System.out.println("Welcome to your Personal Traveling Accountant!");
         System.out.println("We keeps eye on your expense and help you manage your trip more easier!");
-        System.out.println("Do you want to load Teller Accountant data from file?");
         processLoadFile();
 
         boolean keepGoing = true;
@@ -66,6 +67,7 @@ public class TravelAccountantApp {
             String command = input.next();
 
             if (command.equals("q")) {
+                processSaveFile();
                 keepGoing = false;
             } else {
                 processMainCommand(command);
@@ -82,7 +84,6 @@ public class TravelAccountantApp {
         System.out.println("\te ->  expense");
         System.out.println("\tt ->  traveling partner");
         System.out.println("\tc ->  cash");
-        System.out.println("\ts ->  save data to file");
         System.out.println("\tq ->  quit");
     }
 
@@ -95,33 +96,46 @@ public class TravelAccountantApp {
             runTravelingPartner();
         } else if (command.equals("c")) {
             runCash();
-        } else if (command.equals("s")) {
-            loadAndSaveDataManager.saveTellerAccountantData(budget, cash, userExpenses, userTravelingPartnerList);
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
     //MODIFIES: this
-    //EFFECTS: displays load file option to user and processes the
+    //EFFECTS: displays load file option to user and processes the event
     private void processLoadFile() {
-        System.out.println("Please enter 'y' for yes or 'n' for no: ");
-        String command = input.next();
-
-        if (command.equals("y")) {
+        int n = JOptionPane.showConfirmDialog(loadDataFrame,
+                "Would you like to load the data which you saved last time?",
+                "Load Data?",
+                JOptionPane.YES_NO_OPTION);
+        if (n == JOptionPane.YES_OPTION) {
             loadAndSaveDataManager.loadTellerAccountantData();
             budget = loadAndSaveDataManager.getBudget();
             cash = loadAndSaveDataManager.getCash();
             userExpenses = loadAndSaveDataManager.getUserExpenses();
             userTravelingPartnerList = loadAndSaveDataManager.getUserTravelingPartnerList();
-        } else if (!command.equals("n")) {
-            System.out.println("Selection not valid...");
-            processLoadFile();
-        } else {
+        } else if (n == JOptionPane.NO_OPTION) {
             System.out.println("Please enter your Budget : ");
             budget = input.nextDouble();
             System.out.println("Please enter your current Cash amount : ");
             cash = input.nextDouble();
+        } else {
+            System.out.println("Selection not valid...");
+            processLoadFile();
+        }
+    }
+
+    //EFFECTS: displays save file option to user and processes the event
+    private void processSaveFile() {
+        int n = JOptionPane.showConfirmDialog(saveDataFrame,
+                "Would you like to save what you have so far?",
+                "Save Data?",
+                JOptionPane.YES_NO_OPTION);
+        if (n == JOptionPane.YES_OPTION) {
+            loadAndSaveDataManager.saveTellerAccountantData(budget, cash, userExpenses, userTravelingPartnerList);
+        } else if (n != JOptionPane.NO_OPTION) {
+            System.out.println("Selection not valid...");
+            processSaveFile();
         }
     }
 

@@ -1,1 +1,5 @@
-{"traveling partners": []}
+{"traveling partners": [{
+    "amount owed to me": 0,
+    "amount I borrowed": 0,
+    "name": "Nana"
+}]}
