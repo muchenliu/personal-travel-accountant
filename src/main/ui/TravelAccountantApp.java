@@ -17,11 +17,11 @@ public class TravelAccountantApp {
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
 
-    private LoadAndSaveDataManager loadAndSaveDataManager;
-    private VisionComponentsManager visionComponentsManager;
+    private final LoadAndSaveDataManager loadAndSaveDataManager;
+    private final VisionComponentsManager visionComponentsManager;
 
-    private JFrame loadDataFrame;
-    private JFrame saveDataFrame;
+    private final JFrame loadDataFrame;
+    private final JFrame saveDataFrame;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -425,11 +425,10 @@ public class TravelAccountantApp {
         System.out.println("You now have $" + cash + " cash");
     }
 
-    //EFFECTS
+    //EFFECTS: display the amount of cash left
     private void cashLeft() {
         System.out.println("You still have $" + cash + " cash left");
     }
-
 }
 
 

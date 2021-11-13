@@ -5,17 +5,15 @@ import javax.swing.*;
 
 // Manage the welcome and goodbye pop-up gif when application runs
 public class VisionComponentsManager extends JFrame {
-    private ImageIcon welcomeImage;
-    private JLabel welcomeLabel;
-    private ImageIcon goodbyeImage;
-    private JLabel goodbyeLabel;
+    private final JLabel welcomeLabel;
+    private final JLabel goodbyeLabel;
 
     //EFFECTS: set fields to correct image files and attach JLabel to ImageIcon (load images)
     public VisionComponentsManager() {
         String sep = System.getProperty("file.separator");
-        welcomeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
+        ImageIcon welcomeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
                 + sep + "Welcome Minions.gif");
-        goodbyeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
+        ImageIcon goodbyeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
                 + sep + "Goodbye Minions.gif");
 
         welcomeLabel = new JLabel(welcomeImage);
