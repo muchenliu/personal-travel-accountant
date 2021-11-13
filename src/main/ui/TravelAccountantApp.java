@@ -14,25 +14,13 @@ import java.util.Scanner;
 
 //travel accountant application
 public class TravelAccountantApp {
-    private static final String JSON_EXPENSE_LIST_STORE = "./data/myFile/expenseList.txt";
-    private static final String JSON_TRAVELING_PARTNER_LIST_STORE = "./data/myFile/travelingPartnerList.txt";
-    private static final String JSON_BUDGET_STORE = "./data/myFile/budget.txt";
-    private static final String JSON_CASH_STORE = "./data/myFile/cash.txt";
-    private final JsonWriter userExpenseListJsonWriter;
-    private final JsonReader userExpenseListJsonReader;
-    private final JsonWriter userTravelingPartnerListJsonWriter;
-    private final JsonReader userTravelingPartnerListJsonReader;
-    private final JsonWriter userBudgetJsonWriter;
-    private final JsonReader userBudgetJsonReader;
-    private final JsonWriter userCashJsonWriter;
-    private final JsonReader userCashJsonReader;
-
     private double budget;
     private double cash;
     private final Scanner input;
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
 
+    private LoadAndSaveDataManager loadAndSaveDataManager;
     private VisionComponentsManager visionComponentsManager;
 
     //EFFECTS: runs the travel accountant application
@@ -40,16 +28,26 @@ public class TravelAccountantApp {
         input = new Scanner(System.in);
         budget = 0;
         cash = 0;
-        userExpenseListJsonWriter = new JsonWriter(JSON_EXPENSE_LIST_STORE);
-        userExpenseListJsonReader = new JsonReader(JSON_EXPENSE_LIST_STORE);
-        userTravelingPartnerListJsonWriter = new JsonWriter(JSON_TRAVELING_PARTNER_LIST_STORE);
-        userTravelingPartnerListJsonReader = new JsonReader(JSON_TRAVELING_PARTNER_LIST_STORE);
-        userBudgetJsonWriter = new JsonWriter(JSON_BUDGET_STORE);
-        userBudgetJsonReader = new JsonReader(JSON_BUDGET_STORE);
-        userCashJsonWriter = new JsonWriter(JSON_CASH_STORE);
-        userCashJsonReader = new JsonReader(JSON_CASH_STORE);
+        loadAndSaveDataManager = new LoadAndSaveDataManager();
         visionComponentsManager = new VisionComponentsManager();
         runTravelAccountant();
+    }
+
+    //getters
+    public double getBudget() {
+        return budget;
+    }
+
+    public double getCash() {
+        return cash;
+    }
+
+    public ExpenseList getUserExpenses() {
+        return userExpenses;
+    }
+
+    public TravelingPartnerList getUserTravelingPartnerList() {
+        return userTravelingPartnerList;
     }
 
     //MODIFIES: this
@@ -98,7 +96,7 @@ public class TravelAccountantApp {
         } else if (command.equals("c")) {
             runCash();
         } else if (command.equals("s")) {
-            saveTellerAccountantData();
+            loadAndSaveDataManager.saveTellerAccountantData(budget, cash, userExpenses, userTravelingPartnerList);
         } else {
             System.out.println("Selection not valid...");
         }
@@ -111,7 +109,11 @@ public class TravelAccountantApp {
         String command = input.next();
 
         if (command.equals("y")) {
-            loadTellerAccountantData();
+            loadAndSaveDataManager.loadTellerAccountantData();
+            budget = loadAndSaveDataManager.getBudget();
+            cash = loadAndSaveDataManager.getCash();
+            userExpenses = loadAndSaveDataManager.getUserExpenses();
+            userTravelingPartnerList = loadAndSaveDataManager.getUserTravelingPartnerList();
         } else if (!command.equals("n")) {
             System.out.println("Selection not valid...");
             processLoadFile();
@@ -121,57 +123,6 @@ public class TravelAccountantApp {
             System.out.println("Please enter your current Cash amount : ");
             cash = input.nextDouble();
         }
-    }
-
-    //MODIFIES: this
-    //EFFECTS: load expenseList, travelingPartnerList, cash, budget data from file
-    private void loadTellerAccountantData() {
-        try {
-            userExpenses = userExpenseListJsonReader.readExpenseList();
-            System.out.println("Loaded expense list from " + JSON_EXPENSE_LIST_STORE);
-
-            userTravelingPartnerList = userTravelingPartnerListJsonReader.readTPList();
-            System.out.println("Loaded traveling partner list from " + JSON_TRAVELING_PARTNER_LIST_STORE);
-
-            budget = userBudgetJsonReader.readAndParseBudget();
-            System.out.println("Loaded budget amount from " + JSON_BUDGET_STORE);
-
-            cash = userCashJsonReader.readAndParseCash();
-            System.out.println("Loaded cash amount from " + JSON_CASH_STORE);
-
-        } catch (IOException e) {
-            System.out.println("Sorry, unable to read from file.");
-        }
-    }
-
-    //EFFECTS: save expenseList, travelingPartnerList, cash, budget data to file
-    private void saveTellerAccountantData() {
-        try {
-            userExpenseListJsonWriter.openWriter();
-            userExpenseListJsonWriter.writeUserExpenseList(userExpenses);
-            userExpenseListJsonWriter.close();
-            System.out.println("Saved expense list to " + JSON_EXPENSE_LIST_STORE);
-
-            userTravelingPartnerListJsonWriter.openWriter();
-            userTravelingPartnerListJsonWriter.writeUserTravelingPartnerList(userTravelingPartnerList);
-            userTravelingPartnerListJsonWriter.close();
-            System.out.println("Saved traveling partner list to " + JSON_TRAVELING_PARTNER_LIST_STORE);
-
-            userBudgetJsonWriter.openWriter();
-            userBudgetJsonWriter.writeUserBudget(budget);
-            userBudgetJsonWriter.close();
-            System.out.println("Saved budget amount to " + JSON_BUDGET_STORE);
-
-            userCashJsonWriter.openWriter();
-            userCashJsonWriter.writeUserCash(cash);
-            userCashJsonWriter.close();
-            System.out.println("Saved cash amount to " + JSON_CASH_STORE);
-
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Sorry, unable to write to file.");
-        }
-
     }
 
     //MODIFIES: this
