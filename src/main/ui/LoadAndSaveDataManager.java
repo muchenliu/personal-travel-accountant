@@ -28,23 +28,6 @@ public class LoadAndSaveDataManager {
     private final JsonWriter userCashJsonWriter;
     private final JsonReader userCashJsonReader;
 
-    //getters
-    public double getBudget() {
-        return budget;
-    }
-
-    public double getCash() {
-        return cash;
-    }
-
-    public ExpenseList getUserExpenses() {
-        return userExpenses;
-    }
-
-    public TravelingPartnerList getUserTravelingPartnerList() {
-        return userTravelingPartnerList;
-    }
-
     //EFFECTS: sets budget and cash fields to zero; initiates all necessary fields
     public LoadAndSaveDataManager() {
         budget = 0;
@@ -60,6 +43,23 @@ public class LoadAndSaveDataManager {
         userBudgetJsonReader = new JsonReader(JSON_BUDGET_STORE);
         userCashJsonWriter = new JsonWriter(JSON_CASH_STORE);
         userCashJsonReader = new JsonReader(JSON_CASH_STORE);
+    }
+
+    //getters
+    public double getBudget() {
+        return budget;
+    }
+
+    public double getCash() {
+        return cash;
+    }
+
+    public ExpenseList getUserExpenses() {
+        return userExpenses;
+    }
+
+    public TravelingPartnerList getUserTravelingPartnerList() {
+        return userTravelingPartnerList;
     }
 
     //MODIFIES: this
@@ -83,20 +83,11 @@ public class LoadAndSaveDataManager {
         }
     }
 
-    //EFFECTS: save expenseList, travelingPartnerList, cash, budget data to file
+    //EFFECTS: save userExpenses, userTravelingPartnerList, cash, budget data pass from
+    //         TravelAccountantApp class to file
     public void saveTellerAccountantData(double budget, double cash, ExpenseList userExpenses,
                                          TravelingPartnerList userTravelingPartnerList) {
         try {
-            userExpenseListJsonWriter.openWriter();
-            userExpenseListJsonWriter.writeUserExpenseList(userExpenses);
-            userExpenseListJsonWriter.close();
-            System.out.println("Saved expense list to " + JSON_EXPENSE_LIST_STORE);
-
-            userTravelingPartnerListJsonWriter.openWriter();
-            userTravelingPartnerListJsonWriter.writeUserTravelingPartnerList(userTravelingPartnerList);
-            userTravelingPartnerListJsonWriter.close();
-            System.out.println("Saved traveling partner list to " + JSON_TRAVELING_PARTNER_LIST_STORE);
-
             userBudgetJsonWriter.openWriter();
             userBudgetJsonWriter.writeUserBudget(budget);
             userBudgetJsonWriter.close();
@@ -107,10 +98,18 @@ public class LoadAndSaveDataManager {
             userCashJsonWriter.close();
             System.out.println("Saved cash amount to " + JSON_CASH_STORE);
 
+            userExpenseListJsonWriter.openWriter();
+            userExpenseListJsonWriter.writeUserExpenseList(userExpenses);
+            userExpenseListJsonWriter.close();
+            System.out.println("Saved expense list to " + JSON_EXPENSE_LIST_STORE);
+
+            userTravelingPartnerListJsonWriter.openWriter();
+            userTravelingPartnerListJsonWriter.writeUserTravelingPartnerList(userTravelingPartnerList);
+            userTravelingPartnerListJsonWriter.close();
+            System.out.println("Saved traveling partner list to " + JSON_TRAVELING_PARTNER_LIST_STORE);
 
         } catch (FileNotFoundException e) {
             System.out.println("Sorry, unable to write to file.");
         }
-
     }
 }

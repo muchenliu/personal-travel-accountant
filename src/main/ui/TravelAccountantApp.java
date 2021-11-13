@@ -35,23 +35,6 @@ public class TravelAccountantApp {
         runTravelAccountant();
     }
 
-    //getters
-    public double getBudget() {
-        return budget;
-    }
-
-    public double getCash() {
-        return cash;
-    }
-
-    public ExpenseList getUserExpenses() {
-        return userExpenses;
-    }
-
-    public TravelingPartnerList getUserTravelingPartnerList() {
-        return userTravelingPartnerList;
-    }
-
     //MODIFIES: this
     //EFFECTS: process user inputs of the main page of the app
     private void runTravelAccountant() {
