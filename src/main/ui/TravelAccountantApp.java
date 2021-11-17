@@ -19,9 +19,11 @@ public class TravelAccountantApp {
 
     private final LoadAndSaveDataManager loadAndSaveDataManager;
     private final VisionComponentsManager visionComponentsManager;
+    private TravelingPartnerListPanel travelingPartnerListPanel;
 
     private final JFrame loadDataFrame;
     private final JFrame saveDataFrame;
+    private JFrame travelingPartnerListFrame;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -32,6 +34,7 @@ public class TravelAccountantApp {
         visionComponentsManager = new VisionComponentsManager();
         loadDataFrame = new JFrame();
         saveDataFrame = new JFrame();
+        travelingPartnerListFrame = new JFrame("Traveling Partners");
         runTravelAccountant();
     }
 
@@ -87,6 +90,7 @@ public class TravelAccountantApp {
     //MODIFIES: this
     //EFFECTS: displays load file option to user and processes the event
     private void processLoadFile() {
+        loadDataFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         int n = JOptionPane.showConfirmDialog(loadDataFrame,
                 "Would you like to load the data which you saved last time?",
                 "Load Data?",
@@ -110,15 +114,13 @@ public class TravelAccountantApp {
 
     //EFFECTS: displays save file option to user and processes the event
     private void processSaveFile() {
+        saveDataFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         int n = JOptionPane.showConfirmDialog(saveDataFrame,
                 "Would you like to save what you have so far?",
                 "Save Data?",
                 JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
             loadAndSaveDataManager.saveTellerAccountantData(budget, cash, userExpenses, userTravelingPartnerList);
-        } else if (n != JOptionPane.NO_OPTION) {
-            System.out.println("Selection not valid...");
-            processSaveFile();
         }
     }
 
@@ -179,28 +181,38 @@ public class TravelAccountantApp {
     //EFFECTS: display tp menu to user
     private void displayTravelingPartnerMenu() {
         System.out.println("\nPlease select from the following categories:");
-        System.out.println("\ta ->  add a traveling partner");
-        System.out.println("\tb ->  remove a traveling partner");
-        System.out.println("\tc ->  check amount other owed to you during this trip");
-        System.out.println("\td ->  check amount you borrowed from other during this trip");
+        System.out.println("\ta ->  add or remove traveling partners");
+        System.out.println("\tb ->  check amount other owed to you during this trip");
+        System.out.println("\tc ->  check amount you borrowed from other during this trip");
     }
 
     //MODIFIES: this
     //EFFECTS: process tp user command
     private void processTravelingPartnerCommand(String command) {
         if (command.equals("a")) {
-            addTP();
+            setUpAndShowTravelingPartnerListFrame();
+            userTravelingPartnerList = travelingPartnerListPanel.getTPList();
         } else if (command.equals("b")) {
-            removeTP();
-        } else if (command.equals("c")) {
             printAmountOwed();
-        } else if (command.equals("d")) {
+        } else if (command.equals("c")) {
             printAmountBorrowed();
         } else {
             System.out.println("Selection not valid...");
             System.out.println("Please re-enter the input");
             runTravelingPartner();
         }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set up travelingPartnerListFrame
+    private void setUpAndShowTravelingPartnerListFrame() {
+        travelingPartnerListFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        travelingPartnerListPanel = new TravelingPartnerListPanel(userTravelingPartnerList);
+        JComponent travelingPartnerListContentPane = travelingPartnerListPanel;
+        travelingPartnerListContentPane.setOpaque(true);
+        travelingPartnerListFrame.setContentPane(travelingPartnerListPanel);
+        travelingPartnerListFrame.pack();
+        travelingPartnerListFrame.setVisible(true);
     }
 
     //EFFECTS: display cash menu to user
@@ -343,36 +355,36 @@ public class TravelAccountantApp {
         System.out.println("You still have $" + budgetLeft + " left");
     }
 
-    //MODIFIES: this
-    //EFFECTS: add a TravelingPartner input from user
-    private void addTP() {
-        String givenName;
-        TravelingPartner newTP;
-
-        System.out.println("Please enter the name of your traveling partner : ");
-        givenName = input.next();
-        newTP = new TravelingPartner(givenName);
-        userTravelingPartnerList.addTravelingPartner(newTP);
-
-        System.out.println("Your traveling partner, " + givenName + " has been added");
-    }
-
-    //MODIFIES: this
-    //EFFECTS: remove correspond tp if match the name given by the user
-    private void removeTP() {
-        String givenName;
-        TravelingPartner removeTP;
-
-        System.out.println("Please enter the name of the traveling partner that you want to remove : ");
-        givenName = input.next();
-        removeTP = new TravelingPartner(givenName);
-
-        if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
-            System.out.println("The traveling partner has been removed");
-        } else {
-            System.out.println("This traveling partner does not exist");
-        }
-    }
+//    //MODIFIES: this
+//    //EFFECTS: add a TravelingPartner input from user
+//    private void addTP() {
+//        String givenName;
+//        TravelingPartner newTP;
+//
+//        System.out.println("Please enter the name of your traveling partner : ");
+//        givenName = input.next();
+//        newTP = new TravelingPartner(givenName);
+//        userTravelingPartnerList.addTravelingPartner(newTP);
+//
+//        System.out.println("Your traveling partner, " + givenName + " has been added");
+//    }
+//
+//    //MODIFIES: this
+//    //EFFECTS: remove correspond tp if match the name given by the user
+//    private void removeTP() {
+//        String givenName;
+//        TravelingPartner removeTP;
+//
+//        System.out.println("Please enter the name of the traveling partner that you want to remove : ");
+//        givenName = input.next();
+//        removeTP = new TravelingPartner(givenName);
+//
+//        if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
+//            System.out.println("The traveling partner has been removed");
+//        } else {
+//            System.out.println("This traveling partner does not exist");
+//        }
+//    }
 
     //EFFECTS: print out the amount each tp owed to user
     private void printAmountOwed() {
