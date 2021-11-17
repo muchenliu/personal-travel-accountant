@@ -34,6 +34,18 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
         super(new BorderLayout());
 
         tpList = travelingPartnerList;
+
+        JScrollPane listScrollPane = setListScrollPane();
+        setUpButtonPaneElements();
+        JPanel buttonPane = setButtonPanel();
+
+        add(listScrollPane, BorderLayout.CENTER);
+        add(buttonPane, BorderLayout.PAGE_END);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set up the local field listScrollPane of TravelingPartnerListPanel
+    private JScrollPane setListScrollPane() {
         listModel = new DefaultListModel();
         for (TravelingPartner next : tpList.getTravelingPartnerList()) {
             listModel.addElement(next.getName());
@@ -45,7 +57,12 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
         list.setVisibleRowCount(5);
         list.addListSelectionListener(this);
         JScrollPane listScrollPane = new JScrollPane(list);
+        return listScrollPane;
+    }
 
+    // MODIFIES: this
+    // EFFECTS: set up the elements (addButton, removeButton, JTextField) of buttonPane
+    private void setUpButtonPaneElements() {
         addButton = new JButton(addString);
         AddListener addListener = new AddListener(addButton);
         addButton.setActionCommand(addString);
@@ -60,7 +77,10 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
         travelingPartnerName = new JTextField(10);
         travelingPartnerName.addActionListener(addListener);
         travelingPartnerName.getDocument().addDocumentListener(addListener);
+    }
 
+    // EFFECTS: set up the local field buttonPane of TravelingPartnerListPanel
+    private JPanel setButtonPanel() {
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
         buttonPane.add(removeButton);
@@ -71,9 +91,12 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
         buttonPane.add(addButton);
         buttonPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         buttonPane.setBackground(Color.gray);
+        return buttonPane;
+    }
 
-        add(listScrollPane, BorderLayout.CENTER);
-        add(buttonPane, BorderLayout.PAGE_END);
+    // getter
+    public TravelingPartnerList getTPList() {
+        return tpList;
     }
 
     // the action listener which handle the event when the addButton is clicked by the user
@@ -88,8 +111,41 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
 
         @Override
         // from ActionListener interface
+        // MODIFIES: this
+        // EFFECTS:
         public void actionPerformed(ActionEvent e) {
+            String name = travelingPartnerName.getText();
 
+            if (name.equals("") || listModel.contains(name)) {
+                Toolkit.getDefaultToolkit().beep();
+                //reset text field
+                travelingPartnerName.requestFocusInWindow();
+                travelingPartnerName.setText("");
+                //pop up an ok dialog
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, "Please type in an unique name...");
+            }
+
+            int index = list.getSelectedIndex();            //get selected index
+            if (index == -1) {                              //no selection, so insert at beginning
+                index = 0;
+            } else {                                        //add after the selected item
+                index++;
+            }
+
+            String nameAdded = travelingPartnerName.getText();
+            listModel.insertElementAt(nameAdded, index);
+            //update the tpList which will be called by the TravelAccountantApp class later
+            TravelingPartner tp = new TravelingPartner(nameAdded);
+            tpList.addTravelingPartner(tp);
+
+            //Reset the text field.
+            travelingPartnerName.requestFocusInWindow();
+            travelingPartnerName.setText("");
+
+            //Select the new item and make it visible.
+            list.setSelectedIndex(index);
+            list.ensureIndexIsVisible(index);
         }
 
         @Override
@@ -125,10 +181,5 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
     // from ListSelectionListener interface
     public void valueChanged(ListSelectionEvent e) {
 
-    }
-
-    // getter
-    public TravelingPartnerList getTPList() {
-        return tpList;
     }
 }
