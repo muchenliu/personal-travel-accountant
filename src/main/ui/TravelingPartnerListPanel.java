@@ -12,18 +12,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// event handling and list panel components are referenced ListDemoProject from ORACLE JAVA Tutorials
+// event handling and list panel components are referenced from ListDemoProject file from ORACLE JAVA Tutorials
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 // manages the gui of adding and removing travelingPartner from the travelingPartnerList
 public class TravelingPartnerListPanel extends JPanel implements ListSelectionListener {
 
-    private TravelingPartnerList tpList;
+    private final TravelingPartnerList tpList;
 
     private JList list;
     private DefaultListModel listModel;
 
-    private String addString = "Add";
-    private String removeString = "Remove";
+    private final String addString = "Add";
+    private final String removeString = "Remove";
     private JButton addButton;
     private JButton removeButton;
     private JTextField travelingPartnerName;
@@ -35,7 +35,9 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
 
         tpList = travelingPartnerList;
 
-        JScrollPane listScrollPane = setListScrollPane();
+        setUpList();
+        JScrollPane listScrollPane = new JScrollPane(list);
+
         setUpButtonPaneElements();
         JPanel buttonPane = setButtonPanel();
 
@@ -44,8 +46,8 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
     }
 
     // MODIFIES: this
-    // EFFECTS: set up the local field listScrollPane of TravelingPartnerListPanel
-    private JScrollPane setListScrollPane() {
+    // EFFECTS: set up list and listModel of TravelingPartnerListPanel
+    private void setUpList() {
         listModel = new DefaultListModel();
         for (TravelingPartner next : tpList.getTravelingPartnerList()) {
             listModel.addElement(next.getName());
@@ -56,8 +58,6 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
         list.setSelectedIndex(0);
         list.setVisibleRowCount(5);
         list.addListSelectionListener(this);
-        JScrollPane listScrollPane = new JScrollPane(list);
-        return listScrollPane;
     }
 
     // MODIFIES: this
@@ -103,7 +103,7 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
     // this listener is shared by the travelingPartnerName JTextField and the addButton JButton
     class AddListener implements ActionListener, DocumentListener {
         private boolean alreadyEnabled = false;
-        private JButton button;
+        private final JButton button;
 
         public AddListener(JButton button) {
             this.button = button;
@@ -112,58 +112,92 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
         @Override
         // from ActionListener interface
         // MODIFIES: this
-        // EFFECTS:
+        // EFFECTS: if user types in an appropriate name, then insert the typed-in name to listModel at index, creates
+        //          a new traveling partner with the  typed-in name and add the traveling partner to tpList
         public void actionPerformed(ActionEvent e) {
             String name = travelingPartnerName.getText();
 
             if (name.equals("") || listModel.contains(name)) {
-                Toolkit.getDefaultToolkit().beep();
-                //reset text field
+                inValidInput();
+            } else {
+
+                int index = list.getSelectedIndex();            //get selected index
+                if (index == -1) {                              //no selection, so insert at beginning
+                    index = 0;
+                } else {                                        //add after the selected item
+                    index++;
+                }
+
+                String nameAdded = travelingPartnerName.getText();
+                listModel.insertElementAt(nameAdded, index);
+
+                //update the tpList which will be called by the TravelAccountantApp class later
+                TravelingPartner tp = new TravelingPartner(nameAdded);
+                tpList.addTravelingPartner(tp);
+
+                //Reset the text field.
                 travelingPartnerName.requestFocusInWindow();
                 travelingPartnerName.setText("");
-                //pop up an ok dialog
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, "Please type in an unique name...");
+
+                //Select the new item and make it visible.
+                list.setSelectedIndex(index);
+                list.ensureIndexIsVisible(index);
             }
+        }
 
-            int index = list.getSelectedIndex();            //get selected index
-            if (index == -1) {                              //no selection, so insert at beginning
-                index = 0;
-            } else {                                        //add after the selected item
-                index++;
-            }
-
-            String nameAdded = travelingPartnerName.getText();
-            listModel.insertElementAt(nameAdded, index);
-            //update the tpList which will be called by the TravelAccountantApp class later
-            TravelingPartner tp = new TravelingPartner(nameAdded);
-            tpList.addTravelingPartner(tp);
-
-            //Reset the text field.
+        // EFFECTS: if user types in name that is already contained in listModel, or types in non-text, then pop up an
+        //          ok dialog and setSelectedIndex to 0
+        private void inValidInput() {
+            Toolkit.getDefaultToolkit().beep();
+            //reset text field
             travelingPartnerName.requestFocusInWindow();
             travelingPartnerName.setText("");
-
-            //Select the new item and make it visible.
-            list.setSelectedIndex(index);
-            list.ensureIndexIsVisible(index);
+            //select the index 0 item on the list
+            list.setSelectedIndex(0);
+            list.ensureIndexIsVisible(0);
+            //pop up an ok dialog
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Please type in an unique name...");
         }
 
         @Override
         // from DocumentListener interface
+        // MODIFIES: this
+        // EFFECTS: enable addButton
         public void insertUpdate(DocumentEvent e) {
-
+            if (!alreadyEnabled) {
+                button.setEnabled(true);
+            }
         }
 
         @Override
         // from DocumentListener interface
+        // EFFECTS: calls handleEmptyTextField()
         public void removeUpdate(DocumentEvent e) {
-
+            handleEmptyTextField(e);
         }
 
         @Override
         // from DocumentListener interface
+        //EFFECTS: if travelingPartnerName JTextField is not empty, then enable addButton
         public void changedUpdate(DocumentEvent e) {
+            if (!handleEmptyTextField(e)) {
+                if (!alreadyEnabled) {
+                    button.setEnabled(true);
+                }
+            }
+        }
 
+        // MODIFIES: this
+        // EFFECTS: disable addButton and set to false if travelingPartnerName JTextField is empty, then return true
+        //          return false if travelingPartnerName JTextField is not empty
+        private boolean handleEmptyTextField(DocumentEvent e) {
+            if (e.getDocument().getLength() <= 0) {
+                button.setEnabled(false);
+                alreadyEnabled = false;
+                return true;
+            }
+            return false;
         }
     }
 
@@ -172,14 +206,49 @@ public class TravelingPartnerListPanel extends JPanel implements ListSelectionLi
 
         @Override
         // from ActionListener interface
+        // MODIFIES: this
+        // EFFECTS: remove whatever is selected and remove correspond tp from tpList
+        //          if match the name selected by the user.
+        //          When Nobody's left, disable removeButton.
+        //          When item in the last position is selected and removed, index-- to ensure the index is visible
         public void actionPerformed(ActionEvent e) {
+            int index = list.getSelectedIndex();
 
+            String name = listModel.getElementAt(index).toString();
+            listModel.remove(index);
+            TravelingPartner removeTP = new TravelingPartner(name);
+            tpList.removeTravelingPartner(removeTP);
+
+            int size = listModel.getSize();
+            if (size == 0) {
+                removeButton.setEnabled(false);
+            } else {
+                if (index == size) {
+                    index--;
+                }
+
+                list.setSelectedIndex(index);
+                list.ensureIndexIsVisible(index);
+            }
         }
     }
 
     @Override
     // from ListSelectionListener interface
+    // MODIFIES: this
+    // EFFECTS: when the selected value is not adjusting, disable removeButton when nothing is selected; enable the
+    //          removeButton when something is selected
     public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
 
+            if (list.getSelectedIndex() == -1) {
+                //No selection, disable fire button.
+                removeButton.setEnabled(false);
+
+            } else {
+                //Selection, enable the fire button.
+                removeButton.setEnabled(true);
+            }
+        }
     }
 }

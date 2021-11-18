@@ -1,1 +1,14 @@
-{"expense list": []}
+{"expense list": [
+    {
+        "amount": 70,
+        "category": "Hotel"
+    },
+    {
+        "amount": 715.4285714285714,
+        "category": "Hotel"
+    },
+    {
+        "amount": 500,
+        "category": "Food"
+    }
+]}

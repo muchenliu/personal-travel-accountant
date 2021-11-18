@@ -23,7 +23,7 @@ public class TravelAccountantApp {
 
     private final JFrame loadDataFrame;
     private final JFrame saveDataFrame;
-    private JFrame travelingPartnerListFrame;
+    private final JFrame travelingPartnerListFrame;
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -114,7 +114,7 @@ public class TravelAccountantApp {
 
     //EFFECTS: displays save file option to user and processes the event
     private void processSaveFile() {
-        saveDataFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //saveDataFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         int n = JOptionPane.showConfirmDialog(saveDataFrame,
                 "Would you like to save what you have so far?",
                 "Save Data?",
@@ -264,13 +264,11 @@ public class TravelAccountantApp {
         String isSplit = input.next();
         boolean invalidInput = true;
         while (invalidInput) {
-
             if (Objects.equals(isSplit, "y")) {
                 newExpense.setSplitAmount();
                 userExpenses.addExpense(newExpense);
                 addExpenseToTP(newExpense.getAmount());
                 invalidInput = false;
-                System.out.println("The split expense has ben added");
             } else if (Objects.equals(isSplit, "n")) {
                 userExpenses.addExpense(newExpense);
                 invalidInput = false;
@@ -294,11 +292,13 @@ public class TravelAccountantApp {
         while (invalidInput) {
             if (Objects.equals(whoPaid, "a")) {
                 userTravelingPartnerList.addSplitExpenseAmountOwedToMe(amount);
+                System.out.println("The split expense has ben added");
                 invalidInput = false;
             } else if (Objects.equals(whoPaid, "b")) {
                 System.out.println("Please enter the name of the traveling partner who paid for the bill : ");
                 String tpName = input.next();
                 userTravelingPartnerList.addSplitExpenseAmountIBorrowed(tpName, amount);
+                System.out.println("The split expense has ben added");
                 invalidInput = false;
             } else {
                 System.out.println("invalid input...");
@@ -354,37 +354,6 @@ public class TravelAccountantApp {
         double budgetLeft = budget - userExpenses.totalExpense();
         System.out.println("You still have $" + budgetLeft + " left");
     }
-
-//    //MODIFIES: this
-//    //EFFECTS: add a TravelingPartner input from user
-//    private void addTP() {
-//        String givenName;
-//        TravelingPartner newTP;
-//
-//        System.out.println("Please enter the name of your traveling partner : ");
-//        givenName = input.next();
-//        newTP = new TravelingPartner(givenName);
-//        userTravelingPartnerList.addTravelingPartner(newTP);
-//
-//        System.out.println("Your traveling partner, " + givenName + " has been added");
-//    }
-//
-//    //MODIFIES: this
-//    //EFFECTS: remove correspond tp if match the name given by the user
-//    private void removeTP() {
-//        String givenName;
-//        TravelingPartner removeTP;
-//
-//        System.out.println("Please enter the name of the traveling partner that you want to remove : ");
-//        givenName = input.next();
-//        removeTP = new TravelingPartner(givenName);
-//
-//        if (userTravelingPartnerList.removeTravelingPartner(removeTP)) {
-//            System.out.println("The traveling partner has been removed");
-//        } else {
-//            System.out.println("This traveling partner does not exist");
-//        }
-//    }
 
     //EFFECTS: print out the amount each tp owed to user
     private void printAmountOwed() {

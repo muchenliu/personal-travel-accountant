@@ -40,7 +40,7 @@ public class VisionComponentsManager extends JFrame {
     //MODIFIES: this
     //EFFECTS: set up and display the window
     private void setFrame(String title) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setVisible(true);
         pack();
         setTitle(title);
