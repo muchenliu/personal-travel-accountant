@@ -191,6 +191,7 @@ public class TravelAccountantApp {
     private void processTravelingPartnerCommand(String command) {
         if (command.equals("a")) {
             setUpAndShowTravelingPartnerListFrame();
+            //update userTravelingPartnerList
             userTravelingPartnerList = travelingPartnerListPanel.getTPList();
         } else if (command.equals("b")) {
             printAmountOwed();
