@@ -17,8 +17,12 @@ public class TravelAccountantApp {
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
 
+    private ExpensesManager expensesManager;
+    private TravelingPartnersManager travelingPartnersManager;
+    private CashManager cashManager;
     private final LoadAndSaveDataManager loadAndSaveDataManager;
-    private final VisionComponentsManager visionComponentsManager;
+
+    private final PopUpGifManager popUpGifManager;
     private TravelingPartnerListPanel travelingPartnerListPanel;
 
     private final JFrame loadDataFrame;
@@ -31,7 +35,7 @@ public class TravelAccountantApp {
         budget = 0;
         cash = 0;
         loadAndSaveDataManager = new LoadAndSaveDataManager();
-        visionComponentsManager = new VisionComponentsManager();
+        popUpGifManager = new PopUpGifManager();
         loadDataFrame = new JFrame();
         saveDataFrame = new JFrame();
         travelingPartnerListFrame = new JFrame("Traveling Partners");
@@ -41,7 +45,7 @@ public class TravelAccountantApp {
     //MODIFIES: this
     //EFFECTS: process user inputs of the main page of the app
     private void runTravelAccountant() {
-        visionComponentsManager.displayWelcomeImage();
+        popUpGifManager.displayWelcomeImage();
         System.out.println("Welcome to your Personal Traveling Accountant!");
         System.out.println("We keeps eye on your expense and help you manage your trip more easier!");
         processLoadFile();
@@ -60,7 +64,7 @@ public class TravelAccountantApp {
             }
         }
 
-        visionComponentsManager.displayGoodbyeImage();
+        popUpGifManager.displayGoodbyeImage();
         System.out.println("See you next time! Have a wonderful trip :)");
     }
 

@@ -13,10 +13,5 @@
         "amount owed to me": 0,
         "amount I borrowed": 0,
         "name": "Emily"
-    },
-    {
-        "amount owed to me": 0,
-        "amount I borrowed": 0,
-        "name": "Ben"
     }
 ]}

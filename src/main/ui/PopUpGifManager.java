@@ -4,12 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 
 // Manage the welcome and goodbye pop-up gif when application runs
-public class VisionComponentsManager extends JFrame {
+public class PopUpGifManager extends JFrame {
     private final JLabel welcomeLabel;
     private final JLabel goodbyeLabel;
 
     //EFFECTS: set fields to correct image files and attach JLabel to ImageIcon (load images)
-    public VisionComponentsManager() {
+    public PopUpGifManager() {
         String sep = System.getProperty("file.separator");
         ImageIcon welcomeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
                 + sep + "Welcome Minions.gif");
