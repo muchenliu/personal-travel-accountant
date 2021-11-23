@@ -22,6 +22,8 @@ public class TravelingPartnerList implements Writable {
     public void addTravelingPartner(TravelingPartner tp) {
         if (!travelingPartnerList.contains(tp)) {
             travelingPartnerList.add(tp);
+            EventLog.getInstance().logEvent(new Event("traveling partner "
+                    + tp.getName().toUpperCase() + " added to travelingPartnerList"));
         }
     }
 
@@ -32,6 +34,9 @@ public class TravelingPartnerList implements Writable {
         for (TravelingPartner next : travelingPartnerList) {
             if (next.getName().equals(tp.getName())) {
                 travelingPartnerList.remove(next);
+                EventLog.getInstance().logEvent(
+                        new Event("traveling partner "
+                                + tp.getName().toUpperCase() + " removed from travelingPartnerList"));
                 return true;
             }
         }

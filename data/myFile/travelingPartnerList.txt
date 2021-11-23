@@ -2,16 +2,26 @@
     {
         "amount owed to me": 0,
         "amount I borrowed": 0,
-        "name": "Beatrice"
-    },
-    {
-        "amount owed to me": 0,
-        "amount I borrowed": 0,
-        "name": "Kenny"
-    },
-    {
-        "amount owed to me": 0,
-        "amount I borrowed": 0,
         "name": "Emily"
+    },
+    {
+        "amount owed to me": 0,
+        "amount I borrowed": 0,
+        "name": "Sam"
+    },
+    {
+        "amount owed to me": 0,
+        "amount I borrowed": 0,
+        "name": "Evelyn"
+    },
+    {
+        "amount owed to me": 0,
+        "amount I borrowed": 0,
+        "name": "Penny"
+    },
+    {
+        "amount owed to me": 0,
+        "amount I borrowed": 0,
+        "name": "Samuel"
     }
 ]}

@@ -1,9 +1,6 @@
 package ui;
 
-import model.Expense;
-import model.ExpenseList;
-import model.TravelingPartner;
-import model.TravelingPartnerList;
+import model.*;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -58,6 +55,10 @@ public class TravelAccountantApp {
 
             if (command.equals("q")) {
                 processSaveFile();
+                System.out.println("\n");
+                for (Event e : EventLog.getInstance()) {
+                    System.out.println(e.toString());
+                }
                 keepGoing = false;
             } else {
                 processMainCommand(command);
@@ -65,7 +66,7 @@ public class TravelAccountantApp {
         }
 
         popUpGifManager.displayGoodbyeImage();
-        System.out.println("See you next time! Have a wonderful trip :)");
+        System.out.println("\nSee you next time! Have a wonderful trip :)");
     }
 
     // EFFECTS: displays main menu of options to user

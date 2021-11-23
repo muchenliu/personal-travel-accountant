@@ -10,5 +10,9 @@
     {
         "amount": 500,
         "category": "Food"
+    },
+    {
+        "amount": 45,
+        "category": "Gasoline"
     }
 ]}
