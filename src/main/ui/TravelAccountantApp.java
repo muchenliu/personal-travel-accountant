@@ -14,11 +14,7 @@ public class TravelAccountantApp {
     private ExpenseList userExpenses = new ExpenseList();
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
 
-    private ExpensesManager expensesManager;
-    private TravelingPartnersManager travelingPartnersManager;
-    private CashManager cashManager;
     private final LoadAndSaveDataManager loadAndSaveDataManager;
-
     private final PopUpGifManager popUpGifManager;
     private TravelingPartnerListPanel travelingPartnerListPanel;
 

@@ -73,3 +73,9 @@ Mon Nov 22 20:53:52 PST 2021 <br>
 Owed amount 969.8571428571429 added to NANA <br>
 Mon Nov 22 20:54:09 PST 2021 <br>
 Borrowed amount 127.14285714285714 added to NANA <br>
+
+
+## Phase 4: Task 3
+- If I have more time to work on the project, I will increase the cohesion of the TravelAccountantApp. <br>
+  (ex. create new classes which responsible displaying menu, process expense, process traveling partner, 
+and process cash + budget.)
