@@ -36,3 +36,40 @@
   (budget, expenses, traveling partners, cash) to file and have the option to do so or not
 - As a user, when I start the application, I want to be given the option to load my records 
   (budget, expenses, traveling partners, cash) from file.
+
+
+## Phase 4: Task 2
+Mon Nov 22 20:53:11 PST 2021 <br>
+traveling partner EMILY added to travelingPartnerList <br>
+Mon Nov 22 20:53:11 PST 2021 <br>
+traveling partner SAM added to travelingPartnerList <br>
+Mon Nov 22 20:53:11 PST 2021 <br>
+traveling partner EVELYN added to travelingPartnerList <br>
+Mon Nov 22 20:53:11 PST 2021 <br>
+traveling partner SAMUEL added to travelingPartnerList <br>
+Mon Nov 22 20:53:24 PST 2021 <br>
+traveling partner SAMUEL removed from travelingPartnerList <br>
+Mon Nov 22 20:53:27 PST 2021 <br>
+traveling partner BEATRICE added to travelingPartnerList <br>
+Mon Nov 22 20:53:29 PST 2021 <br>
+traveling partner JENNY added to travelingPartnerList <br>
+Mon Nov 22 20:53:31 PST 2021 <br>
+traveling partner KEN added to travelingPartnerList <br>
+Mon Nov 22 20:53:35 PST 2021 <br>
+traveling partner NANA added to travelingPartnerList <br>
+Mon Nov 22 20:53:38 PST 2021 <br>
+traveling partner JENNY removed from travelingPartnerList <br>
+Mon Nov 22 20:53:52 PST 2021 <br>
+Owed amount 969.8571428571429 added to EMILY <br>
+Mon Nov 22 20:53:52 PST 2021 <br>
+Owed amount 969.8571428571429 added to SAM <br>
+Mon Nov 22 20:53:52 PST 2021 <br>
+Owed amount 969.8571428571429 added to EVELYN <br>
+Mon Nov 22 20:53:52 PST 2021 <br>
+Owed amount 969.8571428571429 added to BEATRICE <br>
+Mon Nov 22 20:53:52 PST 2021 <br>
+Owed amount 969.8571428571429 added to KEN <br>
+Mon Nov 22 20:53:52 PST 2021 <br>
+Owed amount 969.8571428571429 added to NANA <br>
+Mon Nov 22 20:54:09 PST 2021 <br>
+Borrowed amount 127.14285714285714 added to NANA <br>
