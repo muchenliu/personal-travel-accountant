@@ -65,6 +65,8 @@ public class TravelingPartnerList implements Writable {
     public void addSplitExpenseAmountOwedToMe(double owedAmount) {
         for (TravelingPartner next : travelingPartnerList) {
             next.addAmountOwedToMe(owedAmount);
+            EventLog.getInstance().logEvent(new Event("Owed amount " + owedAmount + " added to "
+                    + next.getName().toUpperCase()));
         }
     }
 
@@ -76,6 +78,8 @@ public class TravelingPartnerList implements Writable {
         for (TravelingPartner next : travelingPartnerList) {
             if (next.getName().equals(name)) {
                 next.addAmountIBorrowed(borrowedAmount);
+                EventLog.getInstance().logEvent(new Event("Borrowed amount " + borrowedAmount + " added to "
+                        + next.getName().toUpperCase()));
             }
         }
     }

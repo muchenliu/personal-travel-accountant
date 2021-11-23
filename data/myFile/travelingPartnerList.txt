@@ -1,27 +1,32 @@
 {"traveling partners": [
     {
-        "amount owed to me": 0,
+        "amount owed to me": 969.8571428571429,
         "amount I borrowed": 0,
         "name": "Emily"
     },
     {
-        "amount owed to me": 0,
+        "amount owed to me": 969.8571428571429,
         "amount I borrowed": 0,
         "name": "Sam"
     },
     {
-        "amount owed to me": 0,
+        "amount owed to me": 969.8571428571429,
         "amount I borrowed": 0,
         "name": "Evelyn"
     },
     {
-        "amount owed to me": 0,
+        "amount owed to me": 969.8571428571429,
         "amount I borrowed": 0,
-        "name": "Penny"
+        "name": "Beatrice"
     },
     {
-        "amount owed to me": 0,
+        "amount owed to me": 969.8571428571429,
         "amount I borrowed": 0,
-        "name": "Samuel"
+        "name": "Ken"
+    },
+    {
+        "amount owed to me": 969.8571428571429,
+        "amount I borrowed": 127.14285714285714,
+        "name": "Nana"
     }
 ]}

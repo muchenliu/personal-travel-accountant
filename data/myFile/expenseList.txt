@@ -14,5 +14,13 @@
     {
         "amount": 45,
         "category": "Gasoline"
+    },
+    {
+        "amount": 969.8571428571429,
+        "category": "Game"
+    },
+    {
+        "amount": 127.14285714285714,
+        "category": "Food"
     }
 ]}
