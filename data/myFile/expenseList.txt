@@ -1,26 +1,10 @@
 {"expense list": [
     {
-        "amount": 70,
-        "category": "Hotel"
-    },
-    {
-        "amount": 715.4285714285714,
-        "category": "Hotel"
-    },
-    {
-        "amount": 500,
-        "category": "Food"
-    },
-    {
-        "amount": 45,
-        "category": "Gasoline"
-    },
-    {
-        "amount": 969.8571428571429,
+        "amount": 300,
         "category": "Game"
     },
     {
-        "amount": 127.14285714285714,
+        "amount": 100,
         "category": "Food"
     }
 ]}

@@ -36,7 +36,8 @@ public class TravelAccountantApp {
     }
 
     //MODIFIES: this
-    //EFFECTS: process user inputs of the main page of the app
+    //EFFECTS: process user inputs of the main page of the app, calls display image methods,
+    //         calls processSaveFile() and print out EventLog on console when the user choose to quit the app
     private void runTravelAccountant() {
         popUpGifManager.displayWelcomeImage();
         System.out.println("Welcome to your Personal Traveling Accountant!");
