@@ -76,6 +76,6 @@ Borrowed amount 127.14285714285714 added to NANA <br>
 
 
 ## Phase 4: Task 3
-- If I have more time to work on the project, I will increase the cohesion of the TravelAccountantApp. <br>
+- If I have more time to work on the project, I will increase the cohesion of the TravelAccountantApp class. <br>
   (ex. create new classes in ui which responsible displaying menu, process expense, process traveling partner, 
 and process cash + budget.)
