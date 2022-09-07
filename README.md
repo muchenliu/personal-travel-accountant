@@ -18,8 +18,9 @@
 > travelling with family and friends during the post-pandemic era, *Personal Travel Accountant* also helps 
 > keep track of the necessary follow-up transactions between users and their traveling partners.  
 
-> Personal Travel Accountant is a user-interfere application which obtains hybrid of GUI and system console input to receive 
-> data from user
+> Personal Travel Accountant is a user-interfere application which obtains hybrid of GUI and system console input to 
+> receive data from user. The project includes functions of persistence, EventLog, and manage traveling transaction 
+> implemented by JSON, JSwing, JPanel, JFreeChart libraries.
 
 
 ## User Stories

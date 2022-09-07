@@ -1,8 +1,6 @@
 package ui;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // Manage the welcome and goodbye pop-up gif when application runs
