@@ -3,6 +3,8 @@ package ui;
 import model.*;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -59,7 +61,6 @@ public class TravelAccountantApp {
 //        while (keepGoing) {
         menu.createAndShowMenu(this);
             //displayMainMenu();
-//            //TODO modify main menu frame function
 //            System.out.println("Please enter the command : ");
 //            String command = input.next();
 
@@ -79,7 +80,7 @@ public class TravelAccountantApp {
 
     // EFFECTS: displays main menu of options to user
 //    private void displayMainMenu() {
-//        //TODO main menu frame
+//
 //        System.out.println("\nPlease select from the following categories:");
 //        System.out.println("\te ->  expense");
 //        System.out.println("\tt ->  traveling partner");
@@ -116,10 +117,46 @@ public class TravelAccountantApp {
             userExpenses = loadAndSaveDataManager.getUserExpenses();
             userTravelingPartnerList = loadAndSaveDataManager.getUserTravelingPartnerList();
         } else if (n == JOptionPane.NO_OPTION) {
-            System.out.println("Please enter your Budget : ");
-            budget = input.nextDouble();
-            System.out.println("Please enter your current Cash amount : ");
-            cash = input.nextDouble();
+            //Display Budget GUI
+            JFrame bf = new JFrame("Set Trip Budget");
+            JButton bb = new JButton("submit");
+            JLabel bl = new JLabel("please close the box after hitted submit");
+            JTextField bTextFiled = new JTextField("please enter the amount of budget", 25);
+            bb.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    budget = Double.parseDouble(bTextFiled.getText());
+                }
+            });
+            JPanel bp = new JPanel();
+            bp.add(bTextFiled);
+            bp.add(bb);
+            bp.add(bl);
+            bf.add(bp);
+            bf.setSize(600, 300);
+            bf.setVisible(true);
+            bf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            //Display Cash GUI
+            JFrame cf = new JFrame("Current cash on hand");
+            JButton cb = new JButton("submit");
+            JLabel cl = new JLabel("please close the box after hitted submit");
+            JTextField cTextFiled = new JTextField("please enter the amount of cash", 25);
+            cb.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cash = Double.parseDouble(cTextFiled.getText());
+                }
+            });
+            JPanel cp = new JPanel();
+            cp.add(cTextFiled);
+            cp.add(cb);
+            cp.add(cl);
+            cf.add(cp);
+            cf.setSize(600, 300);
+            cf.setVisible(true);
+            cf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         } else {
             System.out.println("Selection not valid...");
             processLoadFile();
@@ -174,6 +211,7 @@ public class TravelAccountantApp {
         System.out.println("\tc ->  check total expense");
         System.out.println("\td ->  check total expense in different expense categories");
         System.out.println("\te ->  check how much budget left");
+        System.out.println("\tf ->  see total expense pie chart");
     }
 
     //MODIFIES: this
@@ -190,7 +228,13 @@ public class TravelAccountantApp {
             printCategoryExpense();
         } else if (command.equals("e")) {
             printBudgetLeft();
-        } else {
+        } else if (command.equals("f")) {
+            CreatePieChart chart = new CreatePieChart("Expense Pie Chart", "Total Expense",
+                    userExpenses);
+            chart.pack();
+            chart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            chart.setVisible(true);
+        }else {
             System.out.println("Selection not valid...");
             System.out.println("Please re-enter the input");
             runExpense();

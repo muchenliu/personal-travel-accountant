@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import persistence.Writable;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,5 +86,26 @@ public class ExpenseList implements Writable {
         }
 
         return jsonArray;
+    }
+
+    //EFFECTS: returns list of current expense categories
+    public List<String> allCategories() {
+        List<String> categories = new ArrayList<>();
+        for (Expense next : expenseList) {
+            if (!categories.contains(next.getCategory())) {
+                categories.add((next.getCategory()));
+            }
+        }
+        return categories;
+    }
+
+    public List<Integer> categoriesPercentage() {
+        List<Integer> pct = new ArrayList<>();
+        List<String> categories = allCategories();
+        double total = totalExpense();
+        for (String s : categories) {
+            pct.add((int) ((totalExpenseInCategory(s) / total)* 100));
+        }
+        return pct;
     }
 }

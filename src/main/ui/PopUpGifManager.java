@@ -12,7 +12,7 @@ public class PopUpGifManager extends JFrame {
     private ImageIcon welcomeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
             + sep + "Welcome Minions.gif");
     private ImageIcon goodbyeImage = new ImageIcon(System.getProperty("user.dir") + sep + "gif"
-            + sep + "byebye.jpeg");
+            + sep + "Goodbye Minions.gif");
 
     //EFFECTS: set fields to correct image files and attach JLabel to ImageIcon (load images)
     public PopUpGifManager() {
