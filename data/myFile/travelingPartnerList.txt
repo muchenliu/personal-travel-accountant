@@ -1,22 +1,5 @@
-{"traveling partners": [
-    {
-        "amount owed to me": 100,
-        "amount I borrowed": 0,
-        "name": "Nana"
-    },
-    {
-        "amount owed to me": 0,
-        "amount I borrowed": 0,
-        "name": "Gina"
-    },
-    {
-        "amount owed to me": 0,
-        "amount I borrowed": 0,
-        "name": "Kenny"
-    },
-    {
-        "amount owed to me": 0,
-        "amount I borrowed": 0,
-        "name": "Adam"
-    }
-]}
+{"traveling partners": [{
+    "amount owed to me": 0,
+    "amount I borrowed": 0,
+    "name": "Yang"
+}]}

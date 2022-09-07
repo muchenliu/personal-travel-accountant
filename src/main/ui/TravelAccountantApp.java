@@ -15,12 +15,15 @@ public class TravelAccountantApp {
     private TravelingPartnerList userTravelingPartnerList = new TravelingPartnerList();
 
     private final LoadAndSaveDataManager loadAndSaveDataManager;
-    private final PopUpGifManager popUpGifManager;
+    protected final PopUpGifManager popUpGifManager;
     private TravelingPartnerListPanel travelingPartnerListPanel;
 
     private final JFrame loadDataFrame;
     private final JFrame saveDataFrame;
     private final JFrame travelingPartnerListFrame;
+
+    private MenuLayout menu;
+    //TODO add frames
 
     //EFFECTS: runs the travel accountant application
     public TravelAccountantApp() {
@@ -40,54 +43,63 @@ public class TravelAccountantApp {
     //         calls processSaveFile() and print out EventLog on console when the user choose to quit the app
     private void runTravelAccountant() {
         popUpGifManager.displayWelcomeImage();
-        System.out.println("Welcome to your Personal Traveling Accountant!");
-        System.out.println("We keeps eye on your expense and help you manage your trip more easier!");
+        JFrame textFrame = new JFrame("Welcome Messages");
+        JLabel textLabel = new JLabel();
+        textLabel.setText("Welcome to your Personal Traveling Accountant! \n"
+                + "We keep eyes on your expenses and help you manage your trip more easier!");
+        JPanel textPanel = new JPanel();
+        textPanel.add(textLabel);
+        textFrame.add(textPanel);
+        textFrame.setSize(1500, 100);
+        textFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        textFrame.setVisible(true);
         processLoadFile();
 
-        boolean keepGoing = true;
-        while (keepGoing) {
-            displayMainMenu();
-            System.out.println("Please enter the command : ");
-            String command = input.next();
+//        boolean keepGoing = true;
+//        while (keepGoing) {
+        menu.createAndShowMenu(this);
+            //displayMainMenu();
+//            //TODO modify main menu frame function
+//            System.out.println("Please enter the command : ");
+//            String command = input.next();
 
-            if (command.equals("q")) {
-                processSaveFile();
-                System.out.println("\n");
-                for (Event e : EventLog.getInstance()) {
-                    System.out.println(e.toString());
-                }
-                keepGoing = false;
-            } else {
-                processMainCommand(command);
-            }
-        }
-
-        popUpGifManager.displayGoodbyeImage();
-        System.out.println("\nSee you next time! Have a wonderful trip :)");
+//            if (command.equals("q")) {
+//                processSaveFile();
+//                System.out.println("\n");
+//                for (Event e : EventLog.getInstance()) {
+//                    System.out.println(e.toString());
+//                }
+//                keepGoing = false;
+//            } else {
+//                processMainCommand(command);
+//            }
+//        }
     }
+
 
     // EFFECTS: displays main menu of options to user
-    private void displayMainMenu() {
-        System.out.println("\nPlease select from the following categories:");
-        System.out.println("\te ->  expense");
-        System.out.println("\tt ->  traveling partner");
-        System.out.println("\tc ->  cash");
-        System.out.println("\tq ->  quit");
-    }
+//    private void displayMainMenu() {
+//        //TODO main menu frame
+//        System.out.println("\nPlease select from the following categories:");
+//        System.out.println("\te ->  expense");
+//        System.out.println("\tt ->  traveling partner");
+//        System.out.println("\tc ->  cash");
+//        System.out.println("\tq ->  quit");
+//    }
 
     //MODIFIES: this
     //EFFECTS: processes main user command
-    private void processMainCommand(String command) {
-        if (command.equals("e")) {
-            runExpense();
-        } else if (command.equals("t")) {
-            runTravelingPartner();
-        } else if (command.equals("c")) {
-            runCash();
-        } else {
-            System.out.println("Selection not valid...");
-        }
-    }
+//    private void processMainCommand(String command) {
+//        if (command.equals("e")) {
+//            runExpense();
+//        } else if (command.equals("t")) {
+//            runTravelingPartner();
+//        } else if (command.equals("c")) {
+//            runCash();
+//        } else {
+//            System.out.println("Selection not valid...");
+//        }
+//    }
 
     //MODIFIES: this
     //EFFECTS: displays load file option to user and processes the event
@@ -115,8 +127,8 @@ public class TravelAccountantApp {
     }
 
     //EFFECTS: displays save file option to user and processes the event
-    private void processSaveFile() {
-        //saveDataFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    public void processSaveFile() {
+        saveDataFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         int n = JOptionPane.showConfirmDialog(saveDataFrame,
                 "Would you like to save what you have so far?",
                 "Save Data?",
@@ -128,7 +140,8 @@ public class TravelAccountantApp {
 
     //MODIFIES: this
     //EFFECTS: process user inputs of the Expense page of the app
-    private void runExpense() {
+    public void runExpense() {
+        //TODO expense panel
         displayExpenseMenu();
         String command = input.next();
         processExpenseCommand(command);
@@ -136,7 +149,8 @@ public class TravelAccountantApp {
 
     //MODIFIES: this
     //EFFECTS: process user inputs of the TravelingPartner page of the app
-    private void runTravelingPartner() {
+    public void runTravelingPartner() {
+        //TODO traveling partner panel
         displayTravelingPartnerMenu();
         String command = input.next();
         processTravelingPartnerCommand(command);
@@ -144,7 +158,8 @@ public class TravelAccountantApp {
 
     //MODIFIES: this
     //EFFECTS: process user inputs of the Cash page of the app
-    private void runCash() {
+    public void runCash() {
+        //TODO cash panel
         displayCashMenu();
         String command = input.next();
         processCashCommand(command);
@@ -152,6 +167,7 @@ public class TravelAccountantApp {
 
     //EFFECTS: display expense menu to user
     private void displayExpenseMenu() {
+        //TODO expense panel
         System.out.println("\nPlease select from the following categories:");
         System.out.println("\ta ->  record an expense");
         System.out.println("\tb ->  remove an expense");
@@ -163,6 +179,7 @@ public class TravelAccountantApp {
     //MODIFIES: this
     //EFFECTS: process expense user command
     private void processExpenseCommand(String command) {
+        //TODO expense panel
         if (command.equals("a")) {
             recordExpense();
         } else if (command.equals("b")) {
@@ -182,6 +199,7 @@ public class TravelAccountantApp {
 
     //EFFECTS: display tp menu to user
     private void displayTravelingPartnerMenu() {
+        //TODO traveling partner panel
         System.out.println("\nPlease select from the following categories:");
         System.out.println("\ta ->  add or remove traveling partners");
         System.out.println("\tb ->  check amount other owed to you during this trip");
@@ -191,6 +209,7 @@ public class TravelAccountantApp {
     //MODIFIES: this
     //EFFECTS: process tp user command
     private void processTravelingPartnerCommand(String command) {
+        //TODO traveling partner panel
         if (command.equals("a")) {
             setUpAndShowTravelingPartnerListFrame();
             //update userTravelingPartnerList
@@ -220,6 +239,7 @@ public class TravelAccountantApp {
 
     //EFFECTS: display cash menu to user
     private void displayCashMenu() {
+        //TODO cash panel
         System.out.println("\nPlease select from the following categories:");
         System.out.println("\ta ->  record cash income");
         System.out.println("\tb ->  record cash expense");
@@ -229,6 +249,7 @@ public class TravelAccountantApp {
     //MODIFIES: this
     //EFFECTS: process cash user command
     private void processCashCommand(String command) {
+        //TODO cash panel
         if (command.equals("a")) {
             cashIn();
         } else if (command.equals("b")) {
@@ -242,13 +263,15 @@ public class TravelAccountantApp {
         }
     }
 
+
+    //TODO create new panels for each function
     //MODIFIES: this
     //EFFECTS: record an Expense input from user
     private void recordExpense() {
         double amount;
         String category;
 
-        System.out.println("Please enter the amount ant the category of this expense :");
+        System.out.println("Please enter the amount and the category of this expense :");
         System.out.println("Amount : ");
         amount = input.nextDouble();
         System.out.println("Category : ");
